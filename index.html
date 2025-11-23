@@ -1,0 +1,588 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mokenyu Akumbom Junior Kezong - IT Portfolio</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
+            color: #e0e0e0;
+            line-height: 1.6;
+        }
+
+        /* Navigation */
+        nav {
+            background: #000;
+            padding: 1rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0, 255, 255, 0.3);
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 2rem;
+            padding: 0 2rem;
+        }
+
+        nav a, .nav-btn {
+            color: #00ffff;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+            padding: 0.5rem 1rem;
+            border-radius: 5px;
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        nav a:hover, .nav-btn:hover {
+            background: #00ffff;
+            color: #000;
+            transform: translateY(-2px);
+        }
+
+        /* Header */
+        header {
+            background: linear-gradient(135deg, #000 0%, #1a1a1a 100%);
+            padding: 4rem 2rem;
+            text-align: center;
+            border-bottom: 3px solid #00ffff;
+        }
+
+        header h1 {
+            font-size: 3rem;
+            margin-bottom: 0.5rem;
+            color: #00ffff;
+            text-shadow: 0 0 20px rgba(0, 255, 255, 0.5);
+        }
+
+        header p {
+            font-size: 1.3rem;
+            color: #a0a0a0;
+        }
+
+        /* Container */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 3rem 2rem;
+        }
+
+        /* Sections */
+        section {
+            background: #1a1a1a;
+            padding: 3rem;
+            margin: 2rem 0;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0, 255, 255, 0.2);
+            border: 1px solid #333;
+        }
+
+        section h2 {
+            color: #00ffff;
+            font-size: 2.2rem;
+            margin-bottom: 1.5rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid #00ffff;
+        }
+
+        section h3 {
+            color: #4ddbff;
+            font-size: 1.5rem;
+            margin-top: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        /* Profile Section */
+        .profile-content {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: #d0d0d0;
+        }
+
+        /* Resume Section */
+        .resume-section {
+            margin-bottom: 2rem;
+        }
+
+        .resume-section h4 {
+            color: #66e0ff;
+            font-size: 1.2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .job-title {
+            color: #00ffff;
+            font-weight: 600;
+            font-size: 1.1rem;
+        }
+
+        .date {
+            color: #808080;
+            font-style: italic;
+        }
+
+        .company {
+            color: #4ddbff;
+            font-weight: 500;
+        }
+
+        ul {
+            margin-left: 2rem;
+            margin-top: 0.5rem;
+        }
+
+        li {
+            margin-bottom: 0.5rem;
+            color: #d0d0d0;
+        }
+
+        /* Skills Grid */
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .skill-item {
+            background: #2d2d2d;
+            padding: 1rem;
+            border-radius: 8px;
+            border-left: 4px solid #00ffff;
+            transition: all 0.3s ease;
+        }
+
+        .skill-item:hover {
+            transform: translateX(5px);
+            box-shadow: 0 3px 10px rgba(0, 255, 255, 0.3);
+        }
+
+        /* Projects */
+        .project-card {
+            background: #2d2d2d;
+            padding: 2rem;
+            margin: 1.5rem 0;
+            border-radius: 10px;
+            border-left: 5px solid #00ffff;
+            transition: all 0.3s ease;
+        }
+
+        .project-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(0, 255, 255, 0.4);
+        }
+
+        .project-card h4 {
+            color: #00ffff;
+            font-size: 1.4rem;
+            margin-bottom: 1rem;
+        }
+
+        /* Education Cards */
+        .education-card {
+            background: #2d2d2d;
+            padding: 1.5rem;
+            margin: 1rem 0;
+            border-radius: 10px;
+            border: 2px solid #00ffff;
+        }
+
+        .education-card h4 {
+            color: #00ffff;
+            font-size: 1.3rem;
+        }
+
+        .document-link {
+            display: inline-block;
+            background: #00ffff;
+            color: #000;
+            padding: 0.8rem 1.5rem;
+            margin: 0.5rem 0.5rem 0.5rem 0;
+            border-radius: 5px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .document-link:hover {
+            background: #4ddbff;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 10px rgba(0, 255, 255, 0.5);
+        }
+
+        /* Contact Info */
+        .contact-info {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            font-size: 1.1rem;
+        }
+
+        .contact-item {
+            color: #00ffff;
+        }
+
+        .contact-item strong {
+            color: #4ddbff;
+        }
+
+        /* Footer */
+        footer {
+            background: #000;
+            color: #808080;
+            text-align: center;
+            padding: 2rem;
+            margin-top: 3rem;
+            border-top: 3px solid #00ffff;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            header h1 {
+                font-size: 2rem;
+            }
+            
+            nav ul {
+                flex-direction: column;
+                gap: 1rem;
+            }
+            
+            section {
+                padding: 2rem 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav>
+        <ul>
+            <li><button class="nav-btn" data-target="profile">Profile</button></li>
+            <li><button class="nav-btn" data-target="resume">Resume</button></li>
+            <li><button class="nav-btn" data-target="work-samples">Work Samples</button></li>
+            <li><button class="nav-btn" data-target="education">Education & Acknowledgements</button></li>
+        </ul>
+    </nav>
+
+    <!-- Header -->
+    <header>
+        <h1>Mokenyu Akumbom Junior Kezong</h1>
+        <p>IT Professional | Cloud & Systems Administrator | Help Desk Specialist</p>
+    </header>
+
+    <!-- Main Content -->
+    <div class="container">
+        
+        <!-- SECTION 1: PROFILE -->
+        <section id="profile">
+            <h2>Professional Profile</h2>
+            <div class="profile-content">
+                <p>I'm Mokenyu Akumbom Junior Kezong, a dedicated IT professional pursuing Post-Graduate studies in Cloud Computing and Systems Administration at George Brown College in Toronto. With a unique background combining a BSc in Accounting from the University of Buea, Cameroon, and hands-on technical experience in cloud technologies, I bring an analytical mindset and strong problem-solving skills to the IT field.</p>
+                
+                <p style="margin-top: 1rem;">My technical expertise spans Microsoft 365 administration, Windows Server management, PowerShell scripting, Azure AD, AWS cloud services, and networking security. I'm passionate about helping organizations optimize their IT infrastructure and deliver exceptional technical support to end users.</p>
+                
+                <p style="margin-top: 1rem;">Having successfully taught over 7,000 students across diverse cultural backgrounds as an online English tutor, I've developed exceptional communication skills, patience, and the ability to explain complex concepts clearly—qualities that are essential in Help Desk and technical support roles. My experience managing 20+ students simultaneously has sharpened my organizational skills and ability to handle multiple priorities efficiently.</p>
+                
+                <p style="margin-top: 1rem;">I'm actively seeking opportunities as a Help Desk Technician, Microsoft 365 Administrator, or Cloud Support Engineer where I can apply my technical skills, collaborative spirit, and commitment to continuous learning to drive IT excellence and user satisfaction.</p>
+                
+                <div class="contact-info" style="margin-top: 2rem; padding-top: 2rem; border-top: 1px solid #333;">
+                    <div class="contact-item"><strong>Email:</strong> mokenyuakumbomjuniorkezong@georgebrown.ca</div>
+                    <div class="contact-item"><strong>Phone:</strong> +1 416 738 8935</div>
+                    <div class="contact-item"><strong>Location:</strong> Toronto, Ontario, Canada</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 2: RESUME -->
+        <section id="resume">
+            <h2>Resume</h2>
+            
+            <div class="resume-section">
+                <h3>Career Objective</h3>
+                <p>Pursuing Help Desk, Microsoft 365 Administrator, or Cloud Support Engineer positions in the IT field. Dedicated to applying my skills in cloud administration, systems management, and technical support while effectively communicating with teams and end users to achieve organizational excellence and superior customer satisfaction.</p>
+            </div>
+
+            <div class="resume-section">
+                <h3>Technical Skills</h3>
+                <div class="skills-grid">
+                    <div class="skill-item">Microsoft 365 Administration</div>
+                    <div class="skill-item">Windows 10/11 Administration</div>
+                    <div class="skill-item">PowerShell Scripting</div>
+                    <div class="skill-item">Azure Active Directory</div>
+                    <div class="skill-item">AWS Cloud Services</div>
+                    <div class="skill-item">Exchange Online</div>
+                    <div class="skill-item">SharePoint Administration</div>
+                    <div class="skill-item">Cloud Migration (6 R's Strategy)</div>
+                    <div class="skill-item">Networking & Security</div>
+                    <div class="skill-item">CI/CD Tools</div>
+                    <div class="skill-item">Active Directory & Domain Management</div>
+                    <div class="skill-item">Documentation & Architecture</div>
+                    <div class="skill-item">Remote Desktop & Remote PowerShell</div>
+                    <div class="skill-item">User Account Management</div>
+                    <div class="skill-item">Technical Support & Troubleshooting</div>
+                </div>
+            </div>
+
+            <div class="resume-section">
+                <h3>Education</h3>
+                <div class="education-card">
+                    <h4>Post-Graduate Certificate - Cloud Computing & Systems Administration</h4>
+                    <p class="company">George Brown College, Toronto, Canada</p>
+                    <p class="date">February 2025 - Present</p>
+                    <ul>
+                        <li>Deploying Windows desktop settings using provisioning packages</li>
+                        <li>Configuring and managing Windows using PowerShell</li>
+                        <li>Administering Windows using Remote PowerShell and Remote Desktop</li>
+                        <li>Managing local and shared permissions, user authentication</li>
+                        <li>Creating and managing domains and domain controllers</li>
+                        <li>Managing networks with Packet Tracer (logical and physical)</li>
+                    </ul>
+                </div>
+
+                <div class="education-card">
+                    <h4>Bachelor of Science in Accounting</h4>
+                    <p class="company">University of Buea, Cameroon</p>
+                    <p class="date">October 2020 - July 2023</p>
+                </div>
+            </div>
+
+            <div class="resume-section">
+                <h3>Professional Experience</h3>
+                
+                <div style="margin-bottom: 2rem;">
+                    <p class="job-title">English Tutor</p>
+                    <p class="company">Preply (Online)</p>
+                    <p class="date">July 2025 - September 2025</p>
+                    <ul>
+                        <li>Delivered one-on-one lessons to diverse international students, improving fluency, grammar, and professional communication skills while enhancing creative problem-solving abilities</li>
+                        <li>Acquired 20+ students in less than 1 month through excellent service delivery</li>
+                        <li>Designed and implemented personalized learning plans tailored to student goals, resulting in 5-10% improvement in their fluency</li>
+                        <li>Maintained structured progress tracking and reporting for 20+ students, ensuring continuous improvement and accountability</li>
+                        <li>Demonstrated strong cross-cultural communication skills, working with learners from approximately 6 countries across different professional and academic backgrounds</li>
+                        <li>Acquired 11 positive reviews and delivered 278 one-hour lessons within 6 weeks</li>
+                    </ul>
+                </div>
+
+                <div style="margin-bottom: 2rem;">
+                    <p class="job-title">English Tutor</p>
+                    <p class="company">Native Camp (Online)</p>
+                    <p class="date">November 2022 - July 2025</p>
+                    <ul>
+                        <li>Delivered over 7,000 twenty-five-minute lessons to approximately 1,000 Japanese students</li>
+                        <li>Demonstrated strong cross-cultural communication skills, working with learners from Asia</li>
+                        <li>Utilized digital and interactive tools to create engaging and effective online learning environments</li>
+                        <li>Delivered personalized one-on-one instruction helping students improve fluency, grammar, and professional communication skills</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="resume-section">
+                <h3>Volunteer Experience</h3>
+                <div style="margin-bottom: 1rem;">
+                    <p class="job-title">Accounting Intern</p>
+                    <p class="company">Micro Finance (TICCUL), Bamenda, Cameroon</p>
+                    <p class="date">August 2022</p>
+                    <ul>
+                        <li>Collaborated with colleagues in organizing transactions concerning digital accounts for members</li>
+                        <li>Worked with team to solve regular problematic transactions discovered in spreadsheets, thereby improving problem-solving skills</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="resume-section">
+                <h3>Key Qualifications</h3>
+                <ul>
+                    <li>Excellent communication and collaboration skills with ability to work effectively with architects, engineers, and business stakeholders</li>
+                    <li>Hands-on experience in cloud projects related to Azure AD and AWS</li>
+                    <li>Skilled at applying 6 R's strategy to execute cloud transformation advantages</li>
+                    <li>Demonstrated ability in analyzing and documenting current-state infrastructure and application architectures</li>
+                    <li>High exposure to hybrid cloud environments</li>
+                    <li>Experienced in creating and managing Active Directory forests and domains</li>
+                    <li>Knowledgeable understanding of cloud-native design principles, scalability, and security best practices</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- SECTION 3: WORK SAMPLES -->
+        <section id="work-samples">
+            <h2>Work Samples & Projects</h2>
+            
+            <div class="project-card">
+                <h4>Microsoft 365 Administration Project</h4>
+                <p><strong>Skills Demonstrated:</strong> M365 Admin Center, PowerShell, Exchange Online, SharePoint Online, User Management</p>
+                <p style="margin-top: 1rem;"><strong>Project Overview:</strong></p>
+                <ul>
+                    <li><strong>Organization Customization:</strong> Configured custom organization profile including logo, color theme, and helpdesk contact information for M365 tenant</li>
+                    <li><strong>PowerShell Administration:</strong> Installed and configured PowerShell modules for M365 management; created user accounts and assigned licenses using PowerShell commands</li>
+                    <li><strong>Microsoft 365 Apps Deployment:</strong> Successfully installed and configured Office applications on virtual machines; validated activation and functionality</li>
+                    <li><strong>Exchange Online Management:</strong> Created and configured shared mailboxes with appropriate permissions; set up distribution lists for team collaboration; configured malware protection settings</li>
+                    <li><strong>SharePoint Administration:</strong> Created document library sites; managed user permissions and sharing policies; configured organizational sharing settings for OneDrive</li>
+                    <li><strong>Release Management:</strong> Configured targeted release settings for select users to receive updates before general deployment</li>
+                </ul>
+                <p style="margin-top: 1rem; color: #4ddbff;"><em>This project demonstrates comprehensive understanding of M365 administration, including both GUI-based and PowerShell-based management approaches essential for enterprise environments.</em></p>
+            </div>
+
+            <div class="project-card">
+                <h4>Windows 11 Desktop Operating System Administration Project</h4>
+                <p><strong>Skills Demonstrated:</strong> Windows 11 Deployment, PowerShell, Security Configuration, Storage Management, File Permissions</p>
+                <p style="margin-top: 1rem;"><strong>Project Overview:</strong></p>
+                <ul>
+                    <li><strong>Windows 11 Installation:</strong> Successfully deployed Windows 11 on VMware Workstation; configured system settings and user accounts</li>
+                    <li><strong>Provisioning Packages:</strong> Created custom provisioning packages to automate local administrator account creation with secure password policies</li>
+                    <li><strong>Security Policy Configuration:</strong> Implemented User Account Control (UAC) policies through Local Group Policy Editor; configured security prompts and screen dimming for enhanced security</li>
+                    <li><strong>PowerShell Network Configuration:</strong> Used PowerShell commands to configure static IP addressing (192.168.168.101/24); validated network connectivity</li>
+                    <li><strong>Storage Space Management:</strong> Created and configured storage spaces with 2-way mirror redundancy for data protection; managed virtual disks and storage pools</li>
+                    <li><strong>File System Permissions:</strong> Configured NTFS permissions for authenticated users (read-only) and administrators (full control); implemented principle of least privilege</li>
+                    <li><strong>Network File Sharing:</strong> Set up network file shares with granular permissions; configured share-level and NTFS-level permissions for secure access</li>
+                    <li><strong>Application Management:</strong> Installed and configured Microsoft Store applications; managed Microsoft Whiteboard deployment</li>
+                    <li><strong>Data Protection:</strong> Configured File History backup solution with 30-day retention policy for disaster recovery</li>
+                    <li><strong>User Interface Customization:</strong> Customized Start Menu layout; exported taskbar configurations for deployment</li>
+                </ul>
+                <p style="margin-top: 1rem; color: #4ddbff;"><em>This project showcases enterprise-level Windows administration skills including security hardening, automation through PowerShell, storage management, and backup configuration critical for Help Desk and Systems Administrator roles.</em></p>
+            </div>
+
+            <div class="project-card">
+                <h4>Additional Technical Competencies</h4>
+                <ul>
+                    <li><strong>Cloud Architecture Documentation:</strong> Experience analyzing and documenting on-premises and cloud infrastructure architectures</li>
+                    <li><strong>Hybrid Environment Management:</strong> Hands-on exposure to hybrid cloud environments integrating on-premises and cloud resources</li>
+                    <li><strong>Active Directory Management:</strong> Practical experience creating and managing Active Directory forests, domains, and domain controllers</li>
+                    <li><strong>Network Management:</strong> Configured network topologies using Cisco Packet Tracer for both logical and physical network design</li>
+                    <li><strong>Remote Administration:</strong> Proficient in Remote Desktop Protocol (RDP) and Remote PowerShell for system management</li>
+                </ul>
+            </div>
+
+            <p style="margin-top: 2rem; padding: 1.5rem; background: #2d2d2d; border-radius: 8px; border-left: 4px solid #00ffff;">
+                <strong>Note:</strong> Detailed documentation and screenshots of these projects are available upon request. I'm continuously expanding my portfolio with new projects in cloud computing, automation, and systems administration.
+            </p>
+        </section>
+
+        <!-- SECTION 4: EDUCATION & ACKNOWLEDGEMENTS -->
+        <section id="education">
+            <h2>Education & Acknowledgements</h2>
+            
+            <h3>Academic Credentials</h3>
+            
+            <div class="education-card">
+                <h4>Post-Graduate Certificate - Cloud Computing & Systems Administration</h4>
+                <p class="company">George Brown College, Toronto, Ontario, Canada</p>
+                <p class="date">February 2025 - Present (In Progress)</p>
+                <p style="margin-top: 1rem;">Comprehensive program covering enterprise IT administration, cloud technologies, and systems management with focus on:</p>
+                <ul style="margin-top: 0.5rem;">
+                    <li>Microsoft 365 Administration & Exchange Online</li>
+                    <li>Windows Server & Desktop Operating Systems</li>
+                    <li>PowerShell Scripting & Automation</li>
+                    <li>Azure Active Directory & Cloud Identity Management</li>
+                    <li>Network Administration & Security</li>
+                    <li>Storage Management & Data Protection</li>
+                </ul>
+            </div>
+
+            <div class="education-card">
+                <h4>Bachelor of Science in Accounting</h4>
+                <p class="company">University of Buea, Buea, South West Region, Cameroon</p>
+                <p class="date">October 2020 - July 2023</p>
+                <p style="margin-top: 1rem;">Developed strong analytical, problem-solving, and attention to detail skills essential for IT roles. Gained expertise in data management, financial systems, and process optimization.</p>
+            </div>
+
+            <h3 style="margin-top: 3rem;">Academic Documents</h3>
+            <div style="margin-top: 1rem;">
+                <a href="#" class="document-link" onclick="alert('Official transcript available upon request'); return false;">📄 Official Transcript - George Brown College</a>
+                <a href="#" class="document-link" onclick="alert('Official transcript available upon request'); return false;">📄 Official Transcript - University of Buea</a>
+            </div>
+
+            <h3 style="margin-top: 3rem;">Letters of Recommendation</h3>
+            
+            <div class="education-card">
+                <h4>Academic Reference Letter</h4>
+                <p class="company">Dr. Arzizeh Tiesieh Tapang, Senior Lecturer</p>
+                <p class="company">Department of Accounting, Faculty of Social and Management Sciences</p>
+                <p class="company">University of Buea, Cameroon</p>
+                <p class="date">June 19, 2025</p>
+                
+                <div style="margin-top: 1rem; padding: 1.5rem; background: #2d2d2d; border-radius: 8px; font-style: italic; color: #d0d0d0;">
+                    <p>"He showed aptitude for courses in Accounting and research. He has a very competent and versatile intellect which is discriminating and fresh in orientation and bold in expression. I have been struck by his dedication to learning and capacity for sustained hard work in academics without compromising on standards and personal integrity."</p>
+                    
+                    <p style="margin-top: 1rem;">"He has indeed been a trailblazer in independent assignments and a model to other aspiring young gentlemen. His modest demeanor hides a resolute and dependable character with other sterling qualities."</p>
+                    
+                    <p style="margin-top: 1rem;">"I have no doubt that he will acquaint himself creditably as Student. I strongly recommend him with great confidence for admission."</p>
+                </div>
+                
+                <a href="#" class="document-link" style="margin-top: 1rem;" onclick="alert('Full letter of recommendation available upon request'); return false;">📄 View Complete Letter</a>
+            </div>
+
+            <h3 style="margin-top: 3rem;">Professional Certifications & Training</h3>
+            <div class="education-card">
+                <h4>Currently Pursuing Professional Certifications</h4>
+                <ul>
+                    <li><strong>Microsoft 365 Certified: Fundamentals</strong> - In preparation</li>
+                    <li><strong>CompTIA A+</strong> - Planned for 2025</li>
+                    <li><strong>AWS Cloud Practitioner</strong> - Planned for 2025</li>
+                </ul>
+                <p style="margin-top: 1rem; color: #4ddbff;"><em>Committed to continuous professional development and staying current with industry certifications</em></p>
+            </div>
+
+            <h3 style="margin-top: 3rem;">Professional Development</h3>
+            <ul>
+                <li>Hands-on experience with Microsoft 365 administration and cloud technologies</li>
+                <li>Practical training in Windows Server and desktop operating system management</li>
+                <li>Development of PowerShell scripting and automation skills</li>
+                <li>Experience with Azure Active Directory and hybrid cloud environments</li>
+                <li>Training in network administration using Cisco Packet Tracer</li>
+                <li>Cross-cultural communication experience through teaching 7,000+ students internationally</li>
+            </ul>
+
+            <div style="margin-top: 2rem; padding: 1.5rem; background: #2d2d2d; border-radius: 8px; border-left: 4px solid #00ffff;">
+                <p><strong>Note:</strong> Official transcripts, certificates, and complete letters of recommendation are available upon request for verification purposes.</p>
+            </div>
+        </section>
+
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2025 Mokenyu Akumbom Junior Kezong | IT Professional Portfolio</p>
+        <p style="margin-top: 0.5rem;">Toronto, Ontario, Canada | mokenyuakumbomjuniorkezong@georgebrown.ca | +1 416 738 8935</p>
+        <p style="margin-top: 1rem; font-size: 0.9rem;">Seeking opportunities as Help Desk Technician | Microsoft 365 Administrator | Cloud Support Engineer</p>
+    </footer>
+
+    <script>
+        // Smooth scroll to sections using buttons
+        document.querySelectorAll('.nav-btn').forEach(button => {
+            button.addEventListener('click', function() {
+                const targetId = this.getAttribute('data-target');
+                const targetSection = document.getElementById(targetId);
+                
+                if (targetSection) {
+                    targetSection.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+    </script>
+
+</body>
+</html>
