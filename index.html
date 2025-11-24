@@ -18,6 +18,10 @@
             line-height: 1.6;
         }
 
+        html {
+            scroll-behavior: smooth;
+        }
+
         /* Navigation */
         nav {
             background: #000;
@@ -26,10 +30,6 @@
             top: 0;
             z-index: 1000;
             box-shadow: 0 2px 10px rgba(0, 255, 255, 0.3);
-        }
-
-        html {
-            scroll-behavior: smooth;
         }
 
         nav ul {
@@ -61,6 +61,12 @@
             transform: translateY(-2px);
         }
 
+        .nav-btn.active {
+            background: #00ffff;
+            color: #000;
+            box-shadow: 0 4px 10px rgba(0, 255, 255, 0.4);
+        }
+
         /* Header */
         header {
             background: linear-gradient(135deg, #000 0%, #1a1a1a 100%);
@@ -86,6 +92,7 @@
             max-width: 1200px;
             margin: 0 auto;
             padding: 3rem 2rem;
+            min-height: 70vh;
         }
 
         /* Sections */
@@ -96,6 +103,23 @@
             border-radius: 15px;
             box-shadow: 0 5px 20px rgba(0, 255, 255, 0.2);
             border: 1px solid #333;
+            display: none;
+            animation: fadeIn 0.5s ease-in-out;
+        }
+
+        section.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
 
         section h2 {
@@ -223,6 +247,10 @@
             text-decoration: none;
             font-weight: 600;
             transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-size: 1rem;
         }
 
         .document-link:hover {
@@ -245,6 +273,15 @@
 
         .contact-item strong {
             color: #4ddbff;
+        }
+
+        /* Highlight Box */
+        .highlight-box {
+            background: #2d2d2d;
+            padding: 1.5rem;
+            border-radius: 8px;
+            border-left: 4px solid #00ffff;
+            margin: 1.5rem 0;
         }
 
         /* Footer */
@@ -282,13 +319,14 @@
             <li><button class="nav-btn" data-target="resume">Resume</button></li>
             <li><button class="nav-btn" data-target="work-samples">Work Samples</button></li>
             <li><button class="nav-btn" data-target="education">Education & Acknowledgements</button></li>
+            <li><button class="nav-btn" data-target="contact">Contact</button></li>
         </ul>
     </nav>
 
     <!-- Header -->
     <header>
         <h1>Mokenyu Akumbom Junior Kezong</h1>
-        <p>IT Professional | Cloud & Systems Administrator | Help Desk Specialist</p>
+        <p>Microsoft 365 Administrator | Cloud Professional | IT Support Specialist</p>
     </header>
 
     <!-- Main Content -->
@@ -298,19 +336,13 @@
         <section id="profile">
             <h2>Professional Profile</h2>
             <div class="profile-content">
-                <p>I'm Mokenyu Akumbom Junior Kezong, a dedicated IT professional pursuing Post-Graduate studies in Cloud Computing and Systems Administration at George Brown College in Toronto. With a unique background combining a BSc in Accounting from the University of Buea, Cameroon, and hands-on technical experience in cloud technologies, I bring an analytical mindset and strong problem-solving skills to the IT field.</p>
+                <p>I'm Mokenyu Akumbom Junior Kezong, a dedicated Microsoft 365 Administrator and cloud professional pursuing Post-Graduate studies at George Brown College in Toronto. With a unique background combining a BSc in Accounting from the University of Buea, Cameroon, and specialized training in Microsoft 365 administration, I bring analytical thinking and strong problem-solving skills to cloud environments.</p>
                 
-                <p style="margin-top: 1rem;">My technical expertise spans Microsoft 365 administration, Windows Server management, and PowerShell scripting. I'm passionate about automating routine tasks, streamlining system workflows, and empowering users through efficient technical solutions.</p>
+                <p style="margin-top: 1rem;">My technical expertise spans Microsoft 365 administration, Windows Server management, and PowerShell scripting. I'm passionate about automating routine tasks, streamlining system workflows, and empowering users through efficient technical solutions. I specialize in creating secure, reliable, and productive cloud environments that drive organizational success.</p>
                 
-                <p style="margin-top: 1rem;">Having successfully taught over 7,000 students across diverse cultural backgrounds as an online English tutor, I've developed exceptional communication skills, patience, and the ability to explain complex concepts clearly—qualities that are essential in Help Desk and technical support roles. My experience managing 20+ students simultaneously has sharpened my organizational skills and ability to handle multiple priorities efficiently.</p>
+                <p style="margin-top: 1rem;">I have hands-on experience designing Teams governance frameworks, optimizing M365 licensing costs, creating PowerShell automation scripts for employee lifecycle management, and documenting complete migration strategies from on-premise to cloud environments. My technical skills are complemented by exceptional communication abilities developed through teaching over 7,000 students across diverse cultural backgrounds.</p>
                 
-                <p style="margin-top: 1rem;">I'm actively seeking opportunities as a Help Desk Technician, Microsoft 365 Administrator, or Cloud Support Engineer where I can apply my technical skills, collaborative spirit, and commitment to continuous learning to drive IT excellence and user satisfaction.</p>
-                
-                <div class="contact-info" style="margin-top: 2rem; padding-top: 2rem; border-top: 1px solid #333;">
-                    <div class="contact-item"><strong>Email:</strong> mokenyuakumbomjuniorkezong@georgebrown.ca</div>
-                    <div class="contact-item"><strong>Phone:</strong> +1 416 738 8935</div>
-                    <div class="contact-item"><strong>Location:</strong> Toronto, Ontario, Canada</div>
-                </div>
+                <p style="margin-top: 1rem;">I'm actively seeking opportunities as a Microsoft 365 Administrator, Help Desk Technician, or Cloud Support Engineer where I can leverage my technical skills, collaborative spirit, and commitment to continuous learning to deliver excellence in cloud administration and user support.</p>
             </div>
         </section>
 
@@ -320,27 +352,29 @@
             
             <div class="resume-section">
                 <h3>Career Objective</h3>
-                <p>Pursuing Help Desk, Microsoft 365 Administrator, or Cloud Support Engineer positions in the IT field. Dedicated to applying my skills in cloud administration, systems management, and technical support while effectively communicating with teams and end users to achieve organizational excellence and superior customer satisfaction.</p>
+                <p>Pursuing a Microsoft 365 Administration position in the cloud field. Dedicated to applying my skills in providing a secure, reliable, and productive cloud environment while effectively communicating with the team to achieve organizational goals.</p>
+            </div>
+
+            <div class="resume-section">
+                <h3>Highlights of Qualifications</h3>
+                <ul>
+                    <li>Excellent communication and collaboration skills with the ability to work effectively with architects, engineers, and business stakeholders to deliver seamless migrations</li>
+                    <li>Demonstrated ability in analyzing and documenting current-state infrastructure and application architectures</li>
+                    <li>Designed and implemented a complete Teams governance framework for a mid-sized company</li>
+                    <li>Analyzed M365 licensing for a fictional company and created a cost optimization plan</li>
+                    <li>Created PowerShell scripts that automate the employee onboarding and offboarding process in M365</li>
+                    <li>Created complete documentation for migrating a fictional small accounting firm (25 users) from on-premise email to Microsoft 365</li>
+                </ul>
             </div>
 
             <div class="resume-section">
                 <h3>Technical Skills</h3>
                 <div class="skills-grid">
                     <div class="skill-item">Microsoft 365 Administration</div>
-                    <div class="skill-item">Windows 10/11 Administration</div>
+                    <div class="skill-item">Windows Server Management</div>
                     <div class="skill-item">PowerShell Scripting</div>
-                    <div class="skill-item">Azure Active Directory</div>
-                    <div class="skill-item">AWS Cloud Services</div>
-                    <div class="skill-item">Exchange Online</div>
-                    <div class="skill-item">SharePoint Administration</div>
-                    <div class="skill-item">Cloud Migration (6 R's Strategy)</div>
-                    <div class="skill-item">Networking & Security</div>
-                    <div class="skill-item">CI/CD Tools</div>
-                    <div class="skill-item">Active Directory & Domain Management</div>
-                    <div class="skill-item">Documentation & Architecture</div>
-                    <div class="skill-item">Remote Desktop & Remote PowerShell</div>
-                    <div class="skill-item">User Account Management</div>
-                    <div class="skill-item">Technical Support & Troubleshooting</div>
+                    <div class="skill-item">Microsoft SharePoint Administration</div>
+                    <div class="skill-item">Microsoft Exchange</div>
                 </div>
             </div>
 
@@ -354,9 +388,11 @@
                         <li>Deploying Windows desktop settings using provisioning packages</li>
                         <li>Configuring and managing Windows using PowerShell</li>
                         <li>Administering Windows using Remote PowerShell and Remote Desktop</li>
-                        <li>Managing local and shared permissions, user authentication</li>
                         <li>Creating and managing domains and domain controllers</li>
                         <li>Managing networks with Packet Tracer (logical and physical)</li>
+                        <li>Connecting to Microsoft 365 account, creating users and assigning licenses using PowerShell</li>
+                        <li>Created shared mailboxes and distribution lists in Exchange Online</li>
+                        <li>Performed email tracing and mail flow analysis in Exchange Admin Center</li>
                     </ul>
                 </div>
 
@@ -364,6 +400,7 @@
                     <h4>Bachelor of Science in Accounting</h4>
                     <p class="company">University of Buea, Cameroon</p>
                     <p class="date">October 2020 - July 2023</p>
+                    <p style="margin-top: 0.5rem;">Developed strong analytical, problem-solving, and attention to detail skills. Gained expertise in data management, financial systems, and process optimization.</p>
                 </div>
             </div>
 
@@ -377,7 +414,7 @@
                     <ul>
                         <li>Delivered one-on-one lessons to diverse international students, improving fluency, grammar, and professional communication skills while enhancing creative problem-solving abilities</li>
                         <li>Acquired 20+ students in less than 1 month through excellent service delivery</li>
-                        <li>Designed and implemented personalized learning plans tailored to student goals, resulting in 5-10% improvement in their fluency</li>
+                        <li>Designed and implemented personalized learning plans tailored to student goals, resulting in 5-10% improvement in fluency</li>
                         <li>Maintained structured progress tracking and reporting for 20+ students, ensuring continuous improvement and accountability</li>
                         <li>Demonstrated strong cross-cultural communication skills, working with learners from approximately 6 countries across different professional and academic backgrounds</li>
                         <li>Acquired 11 positive reviews and delivered 278 one-hour lessons within 6 weeks</li>
@@ -409,43 +446,25 @@
                     </ul>
                 </div>
             </div>
-
-            <div class="resume-section">
-                <h3>Key Qualifications</h3>
-                <ul>
-                    <li>Excellent communication and collaboration skills with ability to work effectively with architects, engineers, and business stakeholders</li>
-                    <li>Hands-on experience in cloud projects related to Azure AD and AWS</li>
-                    <li>Skilled at applying 6 R's strategy to execute cloud transformation advantages</li>
-                    <li>Demonstrated ability in analyzing and documenting current-state infrastructure and application architectures</li>
-                    <li>High exposure to hybrid cloud environments</li>
-                    <li>Experienced in creating and managing Active Directory forests and domains</li>
-                    <li>Knowledgeable understanding of cloud-native design principles, scalability, and security best practices</li>
-                </ul>
-            </div>
         </section>
 
         <!-- SECTION 3: WORK SAMPLES -->
         <section id="work-samples">
             <h2>Work Samples & Projects</h2>
             
-            <div style="margin-bottom: 2rem;">
-                <button class="document-link" onclick="window.open('https://mokenyujunior-tech.github.io/Case-Project-Desktop-Operating-System-Course.docx', '_blank')">📁 Case Project - Desktop Operating System</button>
-                <button class="document-link" onclick="window.open('https://mokenyujunior-tech.github.io/Case-Project-MS-365-course.docx', '_blank')">📁 Case Project - MS 365</button>
-            </div>
-            
             <div class="project-card">
-                <h4>Microsoft 365 Administration Project</h4>
-                <p><strong>Skills Demonstrated:</strong> M365 Admin Center, PowerShell, Exchange Online, SharePoint Online, User Management</p>
+                <h4>Microsoft 365 Administration & Governance Project</h4>
+                <p><strong>Skills Demonstrated:</strong> M365 Admin Center, Teams Governance, PowerShell Automation, Licensing Optimization, Migration Planning</p>
                 <p style="margin-top: 1rem;"><strong>Project Overview:</strong></p>
                 <ul>
-                    <li><strong>Organization Customization:</strong> Configured custom organization profile including logo, color theme, and helpdesk contact information for M365 tenant</li>
-                    <li><strong>PowerShell Administration:</strong> Installed and configured PowerShell modules for M365 management; created user accounts and assigned licenses using PowerShell commands</li>
-                    <li><strong>Microsoft 365 Apps Deployment:</strong> Successfully installed and configured Office applications on virtual machines; validated activation and functionality</li>
-                    <li><strong>Exchange Online Management:</strong> Created and configured shared mailboxes with appropriate permissions; set up distribution lists for team collaboration; configured malware protection settings</li>
-                    <li><strong>SharePoint Administration:</strong> Created document library sites; managed user permissions and sharing policies; configured organizational sharing settings for OneDrive</li>
-                    <li><strong>Release Management:</strong> Configured targeted release settings for select users to receive updates before general deployment</li>
+                    <li><strong>Teams Governance Framework:</strong> Designed and implemented a comprehensive Teams governance framework for a mid-sized company, including naming conventions, lifecycle policies, guest access controls, and compliance requirements</li>
+                    <li><strong>M365 Licensing Analysis:</strong> Conducted detailed analysis of Microsoft 365 licensing for a fictional organization, identifying optimization opportunities and creating a cost-reduction plan that maintained service quality</li>
+                    <li><strong>PowerShell Automation Scripts:</strong> Developed PowerShell scripts to automate employee onboarding and offboarding processes in M365, including account creation, license assignment, group membership, and mailbox configuration</li>
+                    <li><strong>Email Migration Documentation:</strong> Created comprehensive migration documentation for transitioning a 25-user accounting firm from on-premise Exchange to Microsoft 365, including pre-migration assessment, migration steps, post-migration validation, and rollback procedures</li>
+                    <li><strong>User Management:</strong> Connected to M365 via PowerShell, created multiple user accounts, and assigned appropriate licenses using command-line automation</li>
+                    <li><strong>Exchange Online Administration:</strong> Configured shared mailboxes and distribution lists with appropriate permissions; performed email tracing and mail flow analysis using Exchange Admin Center</li>
                 </ul>
-                <p style="margin-top: 1rem; color: #4ddbff;"><em>This project demonstrates comprehensive understanding of M365 administration, including both GUI-based and PowerShell-based management approaches essential for enterprise environments.</em></p>
+                <p style="margin-top: 1rem; color: #4ddbff;"><em>These projects demonstrate enterprise-level M365 administration skills, automation capabilities, and strategic planning abilities essential for modern cloud administrators.</em></p>
             </div>
 
             <div class="project-card">
@@ -456,31 +475,29 @@
                     <li><strong>Windows 11 Installation:</strong> Successfully deployed Windows 11 on VMware Workstation; configured system settings and user accounts</li>
                     <li><strong>Provisioning Packages:</strong> Created custom provisioning packages to automate local administrator account creation with secure password policies</li>
                     <li><strong>Security Policy Configuration:</strong> Implemented User Account Control (UAC) policies through Local Group Policy Editor; configured security prompts and screen dimming for enhanced security</li>
-                    <li><strong>PowerShell Network Configuration:</strong> Used PowerShell commands to configure static IP addressing (192.168.168.101/24); validated network connectivity</li>
+                    <li><strong>PowerShell Network Configuration:</strong> Used PowerShell commands to configure static IP addressing; validated network connectivity</li>
                     <li><strong>Storage Space Management:</strong> Created and configured storage spaces with 2-way mirror redundancy for data protection; managed virtual disks and storage pools</li>
                     <li><strong>File System Permissions:</strong> Configured NTFS permissions for authenticated users (read-only) and administrators (full control); implemented principle of least privilege</li>
                     <li><strong>Network File Sharing:</strong> Set up network file shares with granular permissions; configured share-level and NTFS-level permissions for secure access</li>
-                    <li><strong>Application Management:</strong> Installed and configured Microsoft Store applications; managed Microsoft Whiteboard deployment</li>
+                    <li><strong>Application Management:</strong> Installed and configured Microsoft Store applications; managed application deployment</li>
                     <li><strong>Data Protection:</strong> Configured File History backup solution with 30-day retention policy for disaster recovery</li>
-                    <li><strong>User Interface Customization:</strong> Customized Start Menu layout; exported taskbar configurations for deployment</li>
+                    <li><strong>User Interface Customization:</strong> Customized Start Menu layout; exported taskbar configurations for enterprise deployment</li>
                 </ul>
-                <p style="margin-top: 1rem; color: #4ddbff;"><em>This project showcases enterprise-level Windows administration skills including security hardening, automation through PowerShell, storage management, and backup configuration critical for Help Desk and Systems Administrator roles.</em></p>
+                <p style="margin-top: 1rem; color: #4ddbff;"><em>This project showcases enterprise Windows administration skills including security hardening, automation through PowerShell, storage management, and backup configuration critical for IT support roles.</em></p>
             </div>
 
-            <div class="project-card">
-                <h4>Additional Technical Competencies</h4>
-                <ul>
-                    <li><strong>Cloud Architecture Documentation:</strong> Experience analyzing and documenting on-premises and cloud infrastructure architectures</li>
-                    <li><strong>Hybrid Environment Management:</strong> Hands-on exposure to hybrid cloud environments integrating on-premises and cloud resources</li>
-                    <li><strong>Active Directory Management:</strong> Practical experience creating and managing Active Directory forests, domains, and domain controllers</li>
-                    <li><strong>Network Management:</strong> Configured network topologies using Cisco Packet Tracer for both logical and physical network design</li>
-                    <li><strong>Remote Administration:</strong> Proficient in Remote Desktop Protocol (RDP) and Remote PowerShell for system management</li>
+            <div class="highlight-box">
+                <h4 style="color: #00ffff; margin-bottom: 1rem;">Professional Development Focus</h4>
+                <p><strong>Current Focus Areas:</strong></p>
+                <ul style="margin-top: 0.5rem;">
+                    <li>Advanced PowerShell scripting for M365 automation</li>
+                    <li>Azure Active Directory and conditional access policies</li>
+                    <li>M365 security and compliance features</li>
+                    <li>SharePoint site architecture and permissions management</li>
+                    <li>Microsoft Teams administration and governance</li>
+                    <li>Cloud migration strategies and best practices</li>
                 </ul>
             </div>
-
-            <p style="margin-top: 2rem; padding: 1.5rem; background: #2d2d2d; border-radius: 8px; border-left: 4px solid #00ffff;">
-                <strong>Note:</strong> Detailed documentation and screenshots of these projects are available upon request. I'm continuously expanding my portfolio with new projects in cloud computing, automation, and systems administration.
-            </p>
         </section>
 
         <!-- SECTION 4: EDUCATION & ACKNOWLEDGEMENTS -->
@@ -501,6 +518,8 @@
                     <li>Azure Active Directory & Cloud Identity Management</li>
                     <li>Network Administration & Security</li>
                     <li>Storage Management & Data Protection</li>
+                    <li>SharePoint Administration</li>
+                    <li>Teams Governance & Collaboration Tools</li>
                 </ul>
             </div>
 
@@ -508,7 +527,7 @@
                 <h4>Bachelor of Science in Accounting</h4>
                 <p class="company">University of Buea, Buea, South West Region, Cameroon</p>
                 <p class="date">October 2020 - July 2023</p>
-                <p style="margin-top: 1rem;">Developed strong analytical, problem-solving, and attention to detail skills essential for IT roles. Gained expertise in data management, financial systems, and process optimization.</p>
+                <p style="margin-top: 1rem;">Developed strong analytical, problem-solving, and attention to detail skills essential for IT roles. Gained expertise in data management, financial systems, and process optimization that translates effectively to cloud administration and technical support.</p>
             </div>
 
             <h3 style="margin-top: 3rem;">Academic Documents</h3>
@@ -539,27 +558,75 @@
 
             <h3 style="margin-top: 3rem;">Professional Certifications & Training</h3>
             <div class="education-card">
-                <h4>Currently Pursuing Professional Certifications</h4>
+                <h4>Planned Professional Certifications</h4>
                 <ul>
-                    <li><strong>Microsoft 365 Certified: Fundamentals</strong> - In preparation</li>
+                    <li><strong>Microsoft 365 Certified: Fundamentals (MS-900)</strong> - In preparation</li>
+                    <li><strong>Microsoft 365 Certified: Administrator Expert (MS-102)</strong> - Target: 2026</li>
                     <li><strong>CompTIA A+</strong> - Planned for 2025</li>
-                    <li><strong>AWS Cloud Practitioner</strong> - Planned for 2025</li>
+                    <li><strong>Microsoft Certified: Azure Fundamentals (AZ-900)</strong> - Planned for 2025</li>
                 </ul>
-                <p style="margin-top: 1rem; color: #4ddbff;"><em>Committed to continuous professional development and staying current with industry certifications</em></p>
+                <p style="margin-top: 1rem; color: #4ddbff;"><em>Committed to continuous professional development and staying current with industry-leading certifications</em></p>
             </div>
 
-            <h3 style="margin-top: 3rem;">Professional Development</h3>
-            <ul>
-                <li>Hands-on experience with Microsoft 365 administration and cloud technologies</li>
-                <li>Practical training in Windows Server and desktop operating system management</li>
-                <li>Development of PowerShell scripting and automation skills</li>
-                <li>Experience with Azure Active Directory and hybrid cloud environments</li>
-                <li>Training in network administration using Cisco Packet Tracer</li>
-                <li>Cross-cultural communication experience through teaching 7,000+ students internationally</li>
-            </ul>
+            <h3 style="margin-top: 3rem;">Key Competencies</h3>
+            <div class="highlight-box">
+                <ul>
+                    <li><strong>Technical Excellence:</strong> Hands-on experience with M365 administration, PowerShell automation, and Windows Server management</li>
+                    <li><strong>Problem-Solving:</strong> Proven ability to analyze complex technical issues and implement effective solutions</li>
+                    <li><strong>Communication:</strong> Exceptional cross-cultural communication skills developed through teaching 7,000+ students internationally</li>
+                    <li><strong>Documentation:</strong> Strong technical writing skills demonstrated through comprehensive migration planning and system documentation</li>
+                    <li><strong>Collaboration:</strong> Experience working effectively with diverse teams across different cultural backgrounds</li>
+                    <li><strong>Continuous Learning:</strong> Dedicated to staying current with evolving cloud technologies and best practices</li>
+                </ul>
+            </div>
+        </section>
 
-            <div style="margin-top: 2rem; padding: 1.5rem; background: #2d2d2d; border-radius: 8px; border-left: 4px solid #00ffff;">
-                <p><strong>Note:</strong> Official transcripts, certificates, and complete letters of recommendation are available upon request for verification purposes.</p>
+        <!-- SECTION 5: CONTACT -->
+        <section id="contact">
+            <h2>Contact Information</h2>
+            
+            <div class="profile-content">
+                <p style="margin-bottom: 2rem;">Thank you for visiting my portfolio! I'm actively seeking opportunities in Microsoft 365 Administration, Help Desk Support, and Cloud Engineering. Feel free to reach out to me through any of the following channels:</p>
+                
+                <div class="contact-info">
+                    <div class="contact-item">
+                        <strong>📧 Email:</strong> 
+                        <a href="mailto:mokenyuakumbomjuniorkezong@georgebrown.ca" style="color: #00ffff; text-decoration: none;">mokenyuakumbomjuniorkezong@georgebrown.ca</a>
+                    </div>
+                    <div class="contact-item">
+                        <strong>📱 Phone:</strong> +1 416 738 8935
+                    </div>
+                    <div class="contact-item">
+                        <strong>📍 Location:</strong> Toronto, Ontario, Canada
+                    </div>
+                    <div class="contact-item">
+                        <strong>💼 Status:</strong> Available for Full-Time Positions
+                    </div>
+                </div>
+
+                <div class="highlight-box" style="margin-top: 2rem;">
+                    <h4 style="color: #00ffff; margin-bottom: 1rem;">What I'm Looking For</h4>
+                    <ul>
+                        <li><strong>Microsoft 365 Administrator:</strong> Managing cloud environments, user lifecycle, and M365 services</li>
+                        <li><strong>Help Desk Technician:</strong> Providing technical support and troubleshooting for end users</li>
+                        <li><strong>Cloud Support Engineer:</strong> Supporting cloud infrastructure and assisting with migrations</li>
+                    </ul>
+                </div>
+
+                <div class="highlight-box" style="margin-top: 1.5rem;">
+                    <h4 style="color: #00ffff; margin-bottom: 1rem;">Why Work With Me?</h4>
+                    <ul>
+                        <li>Strong technical foundation in M365 administration and PowerShell automation</li>
+                        <li>Excellent communication skills developed through teaching 7,000+ students</li>
+                        <li>Proven ability to work effectively across diverse cultural backgrounds</li>
+                        <li>Dedicated to continuous learning and professional development</li>
+                        <li>Analytical mindset with strong problem-solving capabilities</li>
+                    </ul>
+                </div>
+
+                <p style="margin-top: 2rem; text-align: center; font-size: 1.2rem; color: #00ffff;">
+                    <strong>I look forward to connecting with you!</strong>
+                </p>
             </div>
         </section>
 
@@ -567,26 +634,65 @@
 
     <!-- Footer -->
     <footer>
-        <p>&copy; 2025 Mokenyu Akumbom Junior Kezong | IT Professional Portfolio</p>
-        <p style="margin-top: 0.5rem;">Toronto, Ontario, Canada | mokenyuakumbomjuniorkezong@georgebrown.ca | +1 416 738 8935</p>
-        <p style="margin-top: 1rem; font-size: 0.9rem;">Seeking opportunities as Help Desk Technician | Microsoft 365 Administrator | Cloud Support Engineer</p>
+        <p>&copy; 2025 Mokenyu Akumbom Junior Kezong | Microsoft 365 Administrator Portfolio</p>
+        <p style="margin-top: 0.5rem;">Toronto, Ontario, Canada</p>
+        <p style="margin-top: 1rem; font-size: 0.9rem;">Seeking opportunities as Microsoft 365 Administrator | Help Desk Technician | Cloud Support Engineer</p>
     </footer>
 
     <script>
-        // Smooth scroll to sections using buttons
+        // Tab switching functionality
         document.querySelectorAll('.nav-btn').forEach(button => {
             button.addEventListener('click', function() {
                 const targetId = this.getAttribute('data-target');
-                const targetSection = document.getElementById(targetId);
                 
+                // Hide all sections
+                document.querySelectorAll('section').forEach(section => {
+                    section.classList.remove('active');
+                });
+                
+                // Remove active class from all buttons
+                document.querySelectorAll('.nav-btn').forEach(btn => {
+                    btn.classList.remove('active');
+                });
+                
+                // Show the target section
+                const targetSection = document.getElementById(targetId);
                 if (targetSection) {
-                    targetSection.scrollIntoView({
-                        behavior: 'smooth',
-                        block: 'start'
-                    });
+                    targetSection.classList.add('active');
+                    // Add active class to clicked button
+                    this.classList.add('active');
+                    // Scroll to top of page smoothly
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
                 }
+                
+                // Update page title based on active section
+                updatePageTitle(targetId);
             });
         });
+        
+        // Show Profile section by default on page load
+        window.addEventListener('DOMContentLoaded', function() {
+            const profileSection = document.getElementById('profile');
+            const profileButton = document.querySelector('[data-target="profile"]');
+            if (profileSection) {
+                profileSection.classList.add('active');
+            }
+            if (profileButton) {
+                profileButton.classList.add('active');
+            }
+        });
+        
+        // Update page title based on active section
+        function updatePageTitle(sectionId) {
+            const titles = {
+                'profile': 'Profile - Mokenyu Akumbom Junior Kezong',
+                'resume': 'Resume - Mokenyu Akumbom Junior Kezong',
+                'work-samples': 'Work Samples - Mokenyu Akumbom Junior Kezong',
+                'education': 'Education - Mokenyu Akumbom Junior Kezong',
+                'contact': 'Contact - Mokenyu Akumbom Junior Kezong'
+            };
+            document.title = titles[sectionId] || 'Mokenyu Akumbom Junior Kezong - IT Portfolio';
+        }
     </script>
 
 </body>
