@@ -1529,11 +1529,113 @@
                         Keep practicing and review Microsoft Learn modules for these topics!
                     </p>
                 </div>
-                
+            `;
+            
+            // Add detailed answer review
+            html += generateAnswerReview();
+            
+            html += `
                 <button class="restart-btn" onclick="location.reload()">Take Another Practice Exam</button>
             `;
             
             resultsScreen.innerHTML = html;
+        }
+
+        function generateAnswerReview() {
+            let html = `
+                <div style="max-width: 900px; margin: 40px auto; text-align: left;">
+                    <h2 style="text-align: center; margin-bottom: 30px; color: #0078d4;">📝 Answer Review</h2>
+            `;
+            
+            examData.questions.forEach((question, index) => {
+                let isCorrect = false;
+                let userAnswerText = '';
+                let correctAnswerText = '';
+                
+                // Determine if answer is correct and get answer texts
+                if (question.type === 'multiple-choice' || question.type === 'scenario') {
+                    isCorrect = answers[question.id] === question.correctAnswer;
+                    userAnswerText = answers[question.id] !== undefined ? question.options[answers[question.id]] : 'Not answered';
+                    correctAnswerText = question.options[question.correctAnswer];
+                } else if (question.type === 'true-false') {
+                    isCorrect = answers[question.id] === question.correctAnswer;
+                    userAnswerText = answers[question.id] !== undefined ? (answers[question.id] ? 'True' : 'False') : 'Not answered';
+                    correctAnswerText = question.correctAnswer ? 'True' : 'False';
+                } else if (question.type === 'multiple-select') {
+                    const userAnswers = answers[question.id] || [];
+                    isCorrect = JSON.stringify(userAnswers.sort()) === JSON.stringify(question.correctAnswers.sort());
+                    userAnswerText = userAnswers.length > 0 
+                        ? userAnswers.map(i => question.options[i]).join(', ') 
+                        : 'Not answered';
+                    correctAnswerText = question.correctAnswers.map(i => question.options[i]).join(', ');
+                } else if (question.type === 'drag-drop') {
+                    const userMapping = answers[question.id] || {};
+                    isCorrect = Object.keys(question.correctMapping).every(
+                        item => userMapping[item] === question.correctMapping[item]
+                    );
+                    userAnswerText = Object.keys(userMapping).length > 0
+                        ? Object.keys(userMapping).map(item => `${item} → ${userMapping[item]}`).join('; ')
+                        : 'Not answered';
+                    correctAnswerText = Object.keys(question.correctMapping).map(
+                        item => `${item} → ${question.correctMapping[item]}`
+                    ).join('; ');
+                }
+                
+                const statusColor = isCorrect ? '#28a745' : '#dc3545';
+                const statusIcon = isCorrect ? '✓' : '✗';
+                const statusText = isCorrect ? 'Correct' : 'Incorrect';
+                
+                html += `
+                    <div style="background: white; border: 2px solid ${statusColor}; border-radius: 8px; padding: 25px; margin-bottom: 25px;">
+                        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
+                            <h3 style="color: #333; margin: 0;">Question ${index + 1}</h3>
+                            <span style="background: ${statusColor}; color: white; padding: 6px 15px; border-radius: 20px; font-weight: 600; font-size: 14px;">
+                                ${statusIcon} ${statusText}
+                            </span>
+                        </div>
+                        
+                        ${question.scenario ? `
+                            <div style="background: #f8f9fa; border-left: 4px solid #0078d4; padding: 15px; margin-bottom: 15px; border-radius: 4px;">
+                                <strong>Scenario:</strong><br>
+                                <span style="white-space: pre-line;">${question.scenario}</span>
+                            </div>
+                        ` : ''}
+                        
+                        <p style="font-size: 16px; font-weight: 500; margin-bottom: 20px; line-height: 1.6;">
+                            ${question.text}
+                        </p>
+                        
+                        <div style="background: #f8f9fa; padding: 15px; border-radius: 6px; margin-bottom: 15px;">
+                            <div style="margin-bottom: 10px;">
+                                <strong style="color: #666;">Your Answer:</strong><br>
+                                <span style="color: ${isCorrect ? '#28a745' : '#dc3545'}; font-weight: 500;">
+                                    ${userAnswerText}
+                                </span>
+                            </div>
+                            ${!isCorrect ? `
+                                <div>
+                                    <strong style="color: #666;">Correct Answer:</strong><br>
+                                    <span style="color: #28a745; font-weight: 500;">
+                                        ${correctAnswerText}
+                                    </span>
+                                </div>
+                            ` : ''}
+                        </div>
+                        
+                        <div style="background: #e7f3ff; border-left: 4px solid #0078d4; padding: 15px; border-radius: 4px;">
+                            <strong style="color: #0078d4;">💡 Explanation:</strong><br>
+                            <span style="line-height: 1.6;">${question.explanation}</span>
+                        </div>
+                        
+                        <div style="margin-top: 10px; font-size: 12px; color: #666;">
+                            <strong>Section:</strong> ${question.section}
+                        </div>
+                    </div>
+                `;
+            });
+            
+            html += '</div>';
+            return html;
         }
 
         // Start exam on load
