@@ -1,0 +1,1372 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MS-900 Practice Exam #2 - EXTREME DIFFICULTY</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+            overflow: hidden;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #dc2626 0%, #991b1b 100%);
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 28px;
+            margin-bottom: 10px;
+        }
+
+        .difficulty-badge {
+            background: #fbbf24;
+            color: #92400e;
+            padding: 8px 20px;
+            border-radius: 20px;
+            display: inline-block;
+            font-weight: bold;
+            font-size: 14px;
+            margin-top: 10px;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+
+        .timer-section {
+            background: #f3f4f6;
+            padding: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 2px solid #e5e7eb;
+        }
+
+        .timer {
+            font-size: 32px;
+            font-weight: bold;
+            color: #dc2626;
+            font-family: 'Courier New', monospace;
+        }
+
+        .timer.warning {
+            animation: blink 1s infinite;
+        }
+
+        @keyframes blink {
+            0%, 50% { opacity: 1; }
+            51%, 100% { opacity: 0.3; }
+        }
+
+        .progress-container {
+            flex: 1;
+            margin: 0 30px;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 30px;
+            background: #e5e7eb;
+            border-radius: 15px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #10b981 0%, #059669 100%);
+            width: 0%;
+            transition: width 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+            font-size: 12px;
+        }
+
+        .content {
+            padding: 30px;
+        }
+
+        .question-navigation {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(45px, 1fr));
+            gap: 8px;
+            margin-bottom: 30px;
+            padding: 20px;
+            background: #f9fafb;
+            border-radius: 8px;
+        }
+
+        .nav-button {
+            width: 45px;
+            height: 45px;
+            border: 2px solid #d1d5db;
+            background: white;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 14px;
+            transition: all 0.2s;
+        }
+
+        .nav-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+
+        .nav-button.answered {
+            background: #10b981;
+            color: white;
+            border-color: #059669;
+        }
+
+        .nav-button.current {
+            background: #3b82f6;
+            color: white;
+            border-color: #2563eb;
+            transform: scale(1.1);
+        }
+
+        .nav-button.flagged {
+            background: #fbbf24;
+            color: #92400e;
+            border-color: #f59e0b;
+        }
+
+        .question-container {
+            display: none;
+        }
+
+        .question-container.active {
+            display: block;
+            animation: fadeIn 0.3s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .scenario-box {
+            background: #fef3c7;
+            border-left: 4px solid #f59e0b;
+            padding: 20px;
+            margin-bottom: 25px;
+            border-radius: 6px;
+        }
+
+        .scenario-label {
+            font-weight: bold;
+            color: #92400e;
+            font-size: 14px;
+            text-transform: uppercase;
+            margin-bottom: 10px;
+        }
+
+        .scenario-text {
+            color: #78350f;
+            line-height: 1.8;
+            font-size: 15px;
+        }
+
+        .question-text {
+            font-size: 18px;
+            font-weight: 500;
+            margin-bottom: 25px;
+            color: #1f2937;
+            line-height: 1.6;
+        }
+
+        .question-number {
+            background: #dc2626;
+            color: white;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-weight: bold;
+            display: inline-block;
+            margin-bottom: 20px;
+        }
+
+        .options {
+            margin: 20px 0;
+        }
+
+        .option {
+            background: #f9fafb;
+            border: 2px solid #e5e7eb;
+            padding: 15px 20px;
+            margin-bottom: 12px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: flex;
+            align-items: flex-start;
+        }
+
+        .option:hover {
+            background: #f3f4f6;
+            border-color: #3b82f6;
+            transform: translateX(5px);
+        }
+
+        .option.selected {
+            background: #dbeafe;
+            border-color: #3b82f6;
+            font-weight: 500;
+        }
+
+        .option input[type="radio"],
+        .option input[type="checkbox"] {
+            margin-right: 12px;
+            margin-top: 3px;
+            width: 20px;
+            height: 20px;
+            cursor: pointer;
+        }
+
+        .flag-button {
+            background: #fbbf24;
+            color: #92400e;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: bold;
+            margin-right: 10px;
+            transition: all 0.2s;
+        }
+
+        .flag-button:hover {
+            background: #f59e0b;
+        }
+
+        .flag-button.flagged {
+            background: #dc2626;
+            color: white;
+        }
+
+        .navigation-buttons {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 2px solid #e5e7eb;
+        }
+
+        .nav-btn {
+            padding: 12px 30px;
+            border: none;
+            border-radius: 6px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.2s;
+            font-size: 16px;
+        }
+
+        .prev-btn {
+            background: #6b7280;
+            color: white;
+        }
+
+        .prev-btn:hover {
+            background: #4b5563;
+        }
+
+        .next-btn {
+            background: #3b82f6;
+            color: white;
+        }
+
+        .next-btn:hover {
+            background: #2563eb;
+        }
+
+        .submit-btn {
+            background: #dc2626;
+            color: white;
+            padding: 15px 40px;
+            font-size: 18px;
+        }
+
+        .submit-btn:hover {
+            background: #991b1b;
+        }
+
+        .results-container {
+            display: none;
+            padding: 40px;
+            text-align: center;
+        }
+
+        .results-container.active {
+            display: block;
+        }
+
+        .score-display {
+            font-size: 72px;
+            font-weight: bold;
+            color: #dc2626;
+            margin: 30px 0;
+        }
+
+        .score-display.pass {
+            color: #10b981;
+        }
+
+        .section-breakdown {
+            background: #f9fafb;
+            padding: 30px;
+            border-radius: 8px;
+            margin-top: 30px;
+            text-align: left;
+        }
+
+        .section-score {
+            display: flex;
+            justify-content: space-between;
+            padding: 15px;
+            margin: 10px 0;
+            background: white;
+            border-radius: 6px;
+            border-left: 4px solid #3b82f6;
+        }
+
+        .drag-drop-container {
+            display: flex;
+            gap: 30px;
+            margin: 20px 0;
+        }
+
+        .drag-items, .drop-zones {
+            flex: 1;
+        }
+
+        .drag-item {
+            background: #dbeafe;
+            border: 2px solid #3b82f6;
+            padding: 12px;
+            margin: 10px 0;
+            border-radius: 6px;
+            cursor: move;
+            font-weight: 500;
+        }
+
+        .drag-item.dragging {
+            opacity: 0.5;
+        }
+
+        .drop-zone {
+            background: #f9fafb;
+            border: 2px dashed #d1d5db;
+            padding: 15px;
+            margin: 10px 0;
+            border-radius: 6px;
+            min-height: 60px;
+        }
+
+        .drop-zone.over {
+            background: #fef3c7;
+            border-color: #f59e0b;
+        }
+
+        .drop-zone .drag-item {
+            cursor: grab;
+        }
+
+        .review-section {
+            margin-top: 40px;
+            padding: 30px;
+            background: #f9fafb;
+            border-radius: 8px;
+        }
+
+        .review-question {
+            background: white;
+            padding: 20px;
+            margin: 15px 0;
+            border-radius: 8px;
+            border-left: 4px solid #dc2626;
+        }
+
+        .review-question.correct {
+            border-left-color: #10b981;
+        }
+
+        .answer-comparison {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin-top: 15px;
+        }
+
+        .user-answer {
+            background: #fee2e2;
+            padding: 15px;
+            border-radius: 6px;
+        }
+
+        .correct-answer {
+            background: #d1fae5;
+            padding: 15px;
+            border-radius: 6px;
+        }
+
+        .answer-label {
+            font-weight: bold;
+            margin-bottom: 10px;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>MS-900: Microsoft 365 Fundamentals</h1>
+            <p style="font-size: 18px; margin-top: 10px;">Practice Exam #2</p>
+            <div class="difficulty-badge">⚠️ EXTREME DIFFICULTY - SCENARIO HEAVY ⚠️</div>
+            <p style="font-size: 14px; margin-top: 15px; opacity: 0.9;">45 Questions | 50 Minutes | Passing Score: 700/1000</p>
+        </div>
+
+        <div class="timer-section">
+            <div class="timer" id="timer">50:00</div>
+            <div class="progress-container">
+                <div class="progress-bar">
+                    <div class="progress-fill" id="progress">0/45</div>
+                </div>
+            </div>
+            <div style="text-align: right;">
+                <div style="font-size: 14px; color: #6b7280; margin-bottom: 5px;">Questions Answered</div>
+                <div style="font-size: 24px; font-weight: bold;" id="answered-count">0/45</div>
+            </div>
+        </div>
+
+        <div class="content" id="exam-content">
+            <div class="question-navigation" id="question-nav"></div>
+
+            <!-- Questions will be inserted here by JavaScript -->
+            <div id="questions-container"></div>
+
+            <div class="navigation-buttons">
+                <button class="nav-btn prev-btn" id="prev-btn" onclick="previousQuestion()">← Previous</button>
+                <button class="flag-button" id="flag-btn" onclick="toggleFlag()">🚩 Flag for Review</button>
+                <button class="nav-btn next-btn" id="next-btn" onclick="nextQuestion()">Next →</button>
+            </div>
+        </div>
+
+        <div class="results-container" id="results"></div>
+    </div>
+
+    <script>
+        const questions = [
+            // SECTION 1: IDENTITY AND ACCESS MANAGEMENT (15 questions - EXTREME scenarios)
+            {
+                section: "Identity and Access Management",
+                scenario: "GlobalTech Corp has 5,000 employees across 20 countries. Their security team discovered that 15% of their users have been compromised in recent data breaches. They need to implement a solution that automatically detects and responds to compromised accounts, blocks sign-ins from impossible travel scenarios (e.g., Tokyo then New York 2 hours later), requires additional verification for risky sign-ins, and integrates with their existing Conditional Access policies to enforce automated responses.",
+                question: "Which combination of features should GlobalTech implement to meet ALL these requirements?",
+                type: "multiple-choice",
+                options: [
+                    "Azure AD Identity Protection + Conditional Access + MFA",
+                    "Security Defaults + Password Protection + MFA",
+                    "Conditional Access + Privileged Identity Management + SSPR",
+                    "Microsoft Defender for Identity + Azure AD Connect + MFA"
+                ],
+                correct: 0
+            },
+            {
+                section: "Identity and Access Management",
+                scenario: "A financial services company needs to ensure that their compliance team can access sensitive financial records only during business hours (9 AM - 5 PM EST), only from company-managed devices, only from their office IP ranges, and must always use MFA. If any of these conditions are not met, access should be completely blocked. Additionally, all access attempts must be logged for audit purposes.",
+                question: "Which features would you configure to implement this solution? (Select all that apply)",
+                type: "multiple-select",
+                options: [
+                    "Conditional Access policy with location condition set to trusted IPs",
+                    "Conditional Access policy with time-based access using sign-in frequency",
+                    "Conditional Access policy requiring compliant devices",
+                    "Conditional Access policy requiring MFA",
+                    "Security Defaults to enforce baseline protection"
+                ],
+                correct: [0, 2, 3]
+            },
+            {
+                section: "Identity and Access Management",
+                scenario: "MediCare Hospital has a hybrid environment with on-premises Active Directory and Microsoft 365. They have 200 doctors who need to access patient records from both hospital workstations and personal devices. IT wants users to sign in once in the morning and access both on-premises applications and cloud services without re-entering credentials. However, when accessing from personal devices, they should be required to use MFA.",
+                question: "What combination of authentication methods and features should be implemented?",
+                type: "multiple-choice",
+                options: [
+                    "Password Hash Sync + Seamless SSO + Conditional Access for device-based MFA",
+                    "Pass-through Authentication + Federation + Per-user MFA",
+                    "Federation with ADFS + Security Defaults + Device compliance policies",
+                    "Cloud-only authentication + Security Defaults + Guest user policies"
+                ],
+                correct: 0
+            },
+            {
+                section: "Identity and Access Management",
+                scenario: "TechStart Inc. needs to provide temporary access to external consultants working on a 3-month project. These consultants should: Access specific Teams channels and SharePoint sites only, Not have access to employee email or calendars, Have their access automatically expire after 90 days, Be able to use their existing work email addresses to sign in.",
+                question: "What is the best approach to manage these external consultants?",
+                type: "multiple-choice",
+                options: [
+                    "Create regular user accounts with limited licenses and set calendar reminders to disable them",
+                    "Use Guest User accounts with access reviews and time-limited access policies",
+                    "Create shared mailboxes and distribute credentials to consultants",
+                    "Use Security Groups with dynamic membership rules based on employment date"
+                ],
+                correct: 1
+            },
+            {
+                section: "Identity and Access Management",
+                scenario: "An enterprise with 10,000 users wants to implement a least-privilege security model for administrative access. They have 50 IT administrators who occasionally need elevated permissions. Requirements: Admins should not have standing privileges, Admins must justify why they need elevated access, Another admin must approve the elevation request, Access should automatically expire after 8 hours, All activations must be logged and auditable.",
+                question: "Which feature provides ALL of these capabilities?",
+                type: "multiple-choice",
+                options: [
+                    "Conditional Access with admin-specific policies",
+                    "Privileged Identity Management (PIM)",
+                    "Role-Based Access Control (RBAC) with time limits",
+                    "Azure AD Access Reviews with approval workflows"
+                ],
+                correct: 1
+            },
+            {
+                section: "Identity and Access Management",
+                scenario: "A company is experiencing a sophisticated phishing attack where attackers are successfully stealing user credentials and using them to access Microsoft 365. The company needs a solution that can: Detect when credentials are being used from unusual locations or devices, Automatically require step-up authentication when risk is detected, Block access when risk is too high, Work seamlessly with their existing Conditional Access policies.",
+                question: "Which Microsoft Entra ID feature specifically addresses real-time sign-in risk detection and automated response?",
+                type: "multiple-choice",
+                options: [
+                    "Azure AD Identity Protection with risk-based Conditional Access",
+                    "Microsoft Defender for Cloud Apps with app conditional access",
+                    "Conditional Access with location-based policies only",
+                    "Azure AD Password Protection with banned password lists"
+                ],
+                correct: 0
+            },
+            {
+                section: "Identity and Access Management",
+                scenario: "RetailGiant Corp synchronizes 15,000 on-premises Active Directory users to Microsoft Entra ID. They want to ensure that if a user's on-premises password is changed, they can immediately sign in to Microsoft 365 with the new password without waiting for the next sync cycle (which runs every 30 minutes).",
+                question: "Which authentication method provides immediate password change synchronization?",
+                type: "multiple-choice",
+                options: [
+                    "Password Hash Synchronization only",
+                    "Pass-through Authentication",
+                    "Federation with ADFS",
+                    "Cloud-only authentication"
+                ],
+                correct: 1
+            },
+            {
+                section: "Identity and Access Management",
+                scenario: "A company needs to enforce that users on iOS and Android mobile devices must use the Microsoft Authenticator app for MFA (not SMS), while desktop users can use any MFA method. Additionally, users signing in from unmanaged mobile devices should be blocked from accessing email.",
+                question: "How can this be achieved?",
+                type: "multiple-choice",
+                options: [
+                    "Create separate Conditional Access policies targeting different device platforms with different controls",
+                    "Use Security Defaults and configure per-user MFA settings",
+                    "Configure MFA settings in the Authentication Methods policy to restrict SMS by device type",
+                    "Use Intune device compliance policies only without Conditional Access"
+                ],
+                correct: 0
+            },
+            {
+                section: "Identity and Access Management",
+                scenario: "FinanceFirst Bank has strict regulatory requirements. When users forget their passwords, they must verify their identity using TWO different methods before resetting. The company wants users to handle this without IT help. They've configured SSPR with these options available: mobile phone (SMS), office phone, email, and security questions.",
+                question: "What is the MINIMUM number of authentication methods users must register to meet the two-method verification requirement during password reset?",
+                type: "multiple-choice",
+                options: [
+                    "One method (the system will ask for it twice)",
+                    "Two methods (users choose which two to use during reset)",
+                    "Three methods (to have a backup if one fails)",
+                    "Four methods (all available methods must be registered)"
+                ],
+                correct: 1
+            },
+            {
+                section: "Identity and Access Management",
+                scenario: "A multinational corporation wants to implement a policy where: Global Admins must always use MFA regardless of location, Regular users need MFA only when outside the corporate network, Guest users must always use MFA and can only access from specific countries.",
+                question: "How many Conditional Access policies are needed at minimum to implement this solution efficiently?",
+                type: "multiple-choice",
+                options: [
+                    "One policy targeting all users with different conditions",
+                    "Two policies: one for admins and one for everyone else",
+                    "Three policies: one for Global Admins, one for regular users, one for guests",
+                    "Five policies: separate policies for each requirement"
+                ],
+                correct: 2
+            },
+            {
+                section: "Identity and Access Management",
+                scenario: "A healthcare organization needs to ensure that when doctors access patient records from the hospital, they're automatically signed in without any prompts. However, when the same doctors access patient records from home, they should be required to use MFA. The organization uses Windows 10 devices joined to their on-premises Active Directory.",
+                question: "Which combination of technologies enables this seamless experience?",
+                type: "multiple-choice",
+                options: [
+                    "Hybrid Azure AD Join + Seamless SSO + Conditional Access with device trust",
+                    "Azure AD Join + Windows Hello for Business + Security Defaults",
+                    "Workplace Join + Certificate-based authentication + Per-user MFA",
+                    "Azure AD registered devices + Passwordless authentication + Guest policies"
+                ],
+                correct: 0
+            },
+            {
+                section: "Identity and Access Management",
+                scenario: "TechCorp's security team discovered that several user accounts have passwords that match passwords leaked in public data breaches. They want to automatically prevent users from using these compromised passwords when creating or changing their passwords, both in the cloud and on-premises.",
+                question: "Which feature should they enable?",
+                type: "multiple-choice",
+                options: [
+                    "Azure AD Password Protection with custom banned password lists",
+                    "Azure AD Identity Protection for leaked credentials detection",
+                    "Conditional Access with sign-in risk policies",
+                    "Security Defaults with automatic password policies"
+                ],
+                correct: 0
+            },
+            {
+                section: "Identity and Access Management",
+                scenario: "An organization with 500 users wants to delegate password reset capabilities to their help desk team (5 people) without giving them full User Administrator privileges. The help desk should be able to reset passwords for regular users but NOT for administrators.",
+                question: "Which built-in role should be assigned to the help desk team?",
+                type: "multiple-choice",
+                options: [
+                    "User Administrator",
+                    "Helpdesk Administrator",
+                    "Password Administrator",
+                    "Authentication Administrator"
+                ],
+                correct: 1
+            },
+            {
+                section: "Identity and Access Management",
+                scenario: "A company wants to implement MFA but is concerned about users without smartphones. They need to support: Microsoft Authenticator app for smartphone users, Voice calls for landline users, FIDO2 security keys for high-security users, But they want to prevent SMS-based authentication due to SIM-swapping attacks.",
+                question: "Where can they configure which MFA methods are allowed or blocked for their organization?",
+                type: "multiple-choice",
+                options: [
+                    "Security Defaults settings",
+                    "Per-user MFA configuration page",
+                    "Authentication methods policy in Microsoft Entra ID",
+                    "Conditional Access policies"
+                ],
+                correct: 2
+            },
+            {
+                section: "Identity and Access Management",
+                scenario: "GlobalRetail has offices in 15 countries. They want to create a Conditional Access policy that requires MFA for all users EXCEPT when they sign in from their office buildings. They have static IP addresses for all 15 office locations.",
+                question: "What is the most efficient way to configure this in Conditional Access?",
+                type: "multiple-choice",
+                options: [
+                    "Create 15 separate Conditional Access policies, one for each office location",
+                    "Create a Named Location with all 15 IP ranges, then create one Conditional Access policy that excludes that Named Location",
+                    "Use Security Defaults and configure IP exceptions in the Azure portal",
+                    "Create one Conditional Access policy with 15 individual IP conditions"
+                ],
+                correct: 1
+            },
+
+            // SECTION 2: PRODUCTIVITY SOLUTIONS (12 questions - Complex scenarios)
+            {
+                section: "Productivity Solutions",
+                scenario: "A marketing agency needs to: Create customer surveys with branching logic (different questions based on previous answers), Automatically collect responses in a central location, Generate automatic analytics and charts, Export data to Excel for advanced analysis, Share survey results with the team in real-time.",
+                question: "Which Microsoft 365 application best meets ALL of these requirements?",
+                type: "multiple-choice",
+                options: [
+                    "Microsoft Forms with Power Automate integration",
+                    "Excel with online forms",
+                    "SharePoint lists with custom forms",
+                    "OneNote with shared notebooks"
+                ],
+                correct: 0
+            },
+            {
+                section: "Productivity Solutions",
+                scenario: "An accounting firm has a complex Excel workbook with sensitive financial formulas. Multiple accountants need to update different sections simultaneously. Requirements: Prevent users from accidentally modifying formulas, Allow multiple users to edit different cells at the same time, Track who made which changes, Maintain version history in case changes need to be reversed.",
+                question: "Which combination of Excel features accomplishes this?",
+                type: "multiple-select",
+                options: [
+                    "Store the workbook in OneDrive or SharePoint for co-authoring",
+                    "Use worksheet protection to lock formula cells",
+                    "Enable version history through cloud storage",
+                    "Use Track Changes for audit trails",
+                    "Save as Excel Binary Workbook (.xlsb) format"
+                ],
+                correct: [0, 1, 2]
+            },
+            {
+                section: "Productivity Solutions",
+                scenario: "A sales team needs to track leads through different stages: New Lead → Contacted → Qualified → Proposal Sent → Closed Won/Lost. They want a visual board where they can drag leads between stages, assign leads to team members, set follow-up dates, and add comments about interactions.",
+                question: "Which Microsoft 365 tool is specifically designed for this visual task management workflow?",
+                type: "multiple-choice",
+                options: [
+                    "Microsoft Lists with custom views",
+                    "Microsoft Planner with buckets for each stage",
+                    "Excel with pivot tables",
+                    "SharePoint with workflow automation"
+                ],
+                correct: 1
+            },
+            {
+                section: "Productivity Solutions",
+                scenario: "A professor needs to create a quiz with: 20 multiple-choice questions, Automatic grading, Point values assigned to each question (some worth more than others), Immediate feedback showing correct answers after submission, Prevention of multiple attempts (students can only take it once), Time limit of 60 minutes.",
+                question: "Which features of Microsoft Forms support ALL of these requirements?",
+                type: "multiple-choice",
+                options: [
+                    "All features are available in Microsoft Forms quiz mode",
+                    "Forms supports this but requires Power Automate for time limits",
+                    "Forms cannot enforce single attempts - requires additional tools",
+                    "Forms cannot assign different point values to questions"
+                ],
+                correct: 0
+            },
+            {
+                section: "Productivity Solutions",
+                scenario: "A research team collaborates on a 200-page academic paper in Word. They need to: See each other's changes in real-time while editing, Add comments for discussion without changing the document, Track all edits with author names for peer review, Create different sections written by different authors, Insert citations and automatically generate a bibliography.",
+                question: "Which Word features support this collaborative research workflow? (Select all that apply)",
+                type: "multiple-select",
+                options: [
+                    "Real-time co-authoring when stored in OneDrive/SharePoint",
+                    "Comments for non-editing feedback",
+                    "Track Changes for review workflow",
+                    "Citations and Bibliography tools",
+                    "Mail Merge for personalizing content"
+                ],
+                correct: [0, 1, 2, 3]
+            },
+            {
+                section: "Productivity Solutions",
+                scenario: "A consulting company needs to schedule client meetings. Requirements: Clients can see available time slots and book appointments online, Prevent double-booking across multiple consultants, Send automatic confirmation emails to clients, Sync with consultants' Outlook calendars, Allow clients to reschedule or cancel online, Different service types (30-min consultation vs 2-hour workshop) with different pricing.",
+                question: "Which Microsoft 365 application is specifically built for this business scheduling scenario?",
+                type: "multiple-choice",
+                options: [
+                    "Outlook calendar with scheduling poll",
+                    "Microsoft Bookings",
+                    "Microsoft Planner with due dates",
+                    "SharePoint calendar with custom forms"
+                ],
+                correct: 1
+            },
+            {
+                section: "Productivity Solutions",
+                scenario: "A data analyst needs to create an interactive dashboard with: Sales data from an Excel workbook, Real-time data refresh from multiple sources, Interactive charts that filter when clicked, Ability to share with executives who can view but not edit, Accessible on mobile devices.",
+                question: "Which tool in Microsoft 365 is designed for creating these interactive data visualizations?",
+                type: "multiple-choice",
+                options: [
+                    "Excel with advanced charts",
+                    "Power BI (included in some Microsoft 365 plans)",
+                    "PowerPoint with linked Excel charts",
+                    "Microsoft Lists with custom views"
+                ],
+                correct: 1
+            },
+            {
+                section: "Productivity Solutions",
+                scenario: "A project manager is organizing a complex project with dependencies. They need features like: Gantt charts showing task timelines, Critical path analysis, Resource allocation and workload balancing, Budget tracking, Integration with Teams and SharePoint.",
+                question: "Which Microsoft application is designed for this level of professional project management?",
+                type: "multiple-choice",
+                options: [
+                    "Microsoft Planner - it handles all project management needs",
+                    "Microsoft Project - designed for complex project management",
+                    "Microsoft Lists with timeline view",
+                    "Excel with project templates"
+                ],
+                correct: 1
+            },
+            {
+                section: "Productivity Solutions",
+                scenario: "A team working across different time zones needs to collaborate on a PowerPoint presentation. Requirements: Multiple people editing simultaneously, See who's editing which slide in real-time, Preserve design consistency across slides, Work offline when traveling and sync changes later, Present remotely to clients with annotation tools.",
+                question: "Which statements about PowerPoint collaboration are TRUE? (Select all that apply)",
+                type: "multiple-select",
+                options: [
+                    "PowerPoint supports real-time co-authoring when stored in OneDrive/SharePoint",
+                    "Users can see which slides others are editing",
+                    "Offline edits sync automatically when reconnected",
+                    "PowerPoint has built-in video conferencing for remote presentations",
+                    "Designer feature helps maintain consistent slide design"
+                ],
+                correct: [0, 1, 2, 4]
+            },
+            {
+                section: "Productivity Solutions",
+                scenario: "A university department wants to organize course materials, research notes, meeting minutes, and project ideas. Professors want: Hierarchical organization (Courses → Semesters → Lectures), Ability to embed Excel data and files, Search across all notes, Sharing specific sections with TAs, Syncing across desktop, tablet, and phone, Handwritten notes on tablets with stylus.",
+                question: "Which application provides this comprehensive digital notebook experience?",
+                type: "multiple-choice",
+                options: [
+                    "OneNote with notebooks, sections, and pages",
+                    "Word with nested documents in folders",
+                    "SharePoint with document libraries",
+                    "Teams with file channels"
+                ],
+                correct: 0
+            },
+            {
+                section: "Productivity Solutions",
+                scenario: "An HR team needs to manage employee personal tasks and departmental tasks separately. Requirements: Personal to-do lists for each HR member, Shared task lists for department projects, Task assignment to specific people, Due dates and reminders, Integration with Outlook tasks, Mobile access for on-the-go updates.",
+                question: "Which combination of tools best supports both personal AND shared task management?",
+                type: "multiple-choice",
+                options: [
+                    "Microsoft To Do for personal tasks + Planner for team tasks",
+                    "Only Planner for both personal and team tasks",
+                    "Only To Do with shared lists for everything",
+                    "Outlook Tasks for everything"
+                ],
+                correct: 0
+            },
+            {
+                section: "Productivity Solutions",
+                scenario: "A company wants to use AI to help employees: Draft emails faster, Summarize long email threads, Suggest meeting agenda items from emails, Create presentation outlines, Analyze Excel data with natural language queries.",
+                question: "Which Microsoft 365 feature provides AI-powered assistance across multiple applications?",
+                type: "multiple-choice",
+                options: [
+                    "Microsoft Copilot for Microsoft 365",
+                    "Power Automate",
+                    "Microsoft Viva Insights",
+                    "Office Scripts"
+                ],
+                correct: 0
+            },
+
+            // SECTION 3: COLLABORATION SOLUTIONS (12 questions - Integration scenarios)
+            {
+                section: "Collaboration Solutions",
+                scenario: "A remote team of 25 people needs a central hub for: Daily video standup meetings at 9 AM, Persistent chat organized by project topics, Shared files with real-time co-authoring, Integration with task management (Planner), Integration with customer database (Salesforce app), Recording meetings for team members in different time zones.",
+                question: "Which Microsoft 365 platform is designed as a unified hub for all these collaboration needs?",
+                type: "multiple-choice",
+                options: [
+                    "SharePoint with communication sites",
+                    "Microsoft Teams with channels, tabs, and apps",
+                    "Yammer for enterprise social networking",
+                    "Outlook with shared calendars and email"
+                ],
+                correct: 1
+            },
+            {
+                section: "Collaboration Solutions",
+                scenario: "An enterprise needs to build a company intranet with: Homepage with company news and announcements, Department sites (HR, IT, Sales, Marketing), Employee directory and organizational chart, Document libraries with version control, Search across all content, Mobile access, Custom branding and navigation.",
+                question: "Which platform is specifically designed for building corporate intranets and content portals?",
+                type: "multiple-choice",
+                options: [
+                    "Microsoft Teams sites",
+                    "SharePoint Online with communication and team sites",
+                    "OneDrive shared folders",
+                    "Yammer communities"
+                ],
+                correct: 1
+            },
+            {
+                section: "Collaboration Solutions",
+                scenario: "A user has three file storage needs: Personal work documents that only they access, Team project files shared with 10 project members, Department policies and templates shared with entire department (200 people). All should sync to desktop, support version history, and allow external sharing with partners.",
+                question: "What is the best storage strategy for these three different scenarios?",
+                type: "multiple-choice",
+                options: [
+                    "Store everything in OneDrive and share from there",
+                    "OneDrive for personal files, SharePoint team site for project, SharePoint communication site for department",
+                    "SharePoint for everything organized in different libraries",
+                    "Teams channels for all files"
+                ],
+                correct: 1
+            },
+            {
+                section: "Collaboration Solutions",
+                scenario: "A company creates a Team in Microsoft Teams for the Product Development department. When files are uploaded to the Teams channel, where are they actually stored?",
+                type: "multiple-choice",
+                question: "Understanding the backend integration, where do Teams files reside?",
+                options: [
+                    "In Microsoft Teams' own file storage system",
+                    "In SharePoint document library (automatically created for the Team)",
+                    "In OneDrive for Business of the person who uploaded them",
+                    "In Exchange Online attachments"
+                ],
+                correct: 1
+            },
+            {
+                section: "Collaboration Solutions",
+                scenario: "GlobalCorp wants to enable organization-wide discussions and knowledge sharing across 50,000 employees. Requirements: Topic-based communities (e.g., Innovation, Sustainability, Work From Home tips), Employees can join communities of interest, Leaders can post announcements to entire company, Polls and surveys within communities, Integration with Teams, Like and comment on posts.",
+                question: "Which platform is designed for enterprise social networking and communities?",
+                type: "multiple-choice",
+                options: [
+                    "Microsoft Teams public teams",
+                    "SharePoint news posts",
+                    "Yammer communities",
+                    "Outlook distribution lists"
+                ],
+                correct: 2
+            },
+            {
+                section: "Collaboration Solutions",
+                scenario: "A project team needs to create a Teams team. They're deciding between Public and Private. Requirements: Only project members should access sensitive financial documents, The team name should appear in search for easy discovery, New employees joining the project should be able to find and request access, Team owners will approve access requests.",
+                question: "Should they create a Public or Private team, and why?",
+                type: "multiple-choice",
+                options: [
+                    "Public team - anyone can join, which meets the easy discovery requirement",
+                    "Private team - it appears in search but requires owner approval to join",
+                    "Public team - they can change permissions on individual files later",
+                    "Private team - it won't appear in search, which protects sensitive data"
+                ],
+                correct: 1
+            },
+            {
+                section: "Collaboration Solutions",
+                scenario: "A marketing team wants to create and share video content: Training videos for new employees, Recorded product demos for sales, Executive announcements, Customer testimonials. Requirements: Automatic transcription and closed captions, Search within video content by spoken words, Analytics on who watched videos, Integration with Teams meetings, Secure internal sharing (not public).",
+                question: "Which Microsoft 365 service is built for enterprise video management?",
+                type: "multiple-choice",
+                options: [
+                    "Upload to OneDrive and share links",
+                    "Microsoft Stream",
+                    "YouTube with private links",
+                    "Teams meeting recordings only"
+                ],
+                correct: 1
+            },
+            {
+                section: "Collaboration Solutions",
+                scenario: "An accounting firm needs strict version control for client financial reports. Requirements: Previous versions must be kept for 7 years, Users should be able to restore any previous version, See who made changes and when, Receive alerts when documents are modified, Prevent accidental deletion for at least 93 days.",
+                question: "Which features support this version control and protection scenario? (Select all that apply)",
+                type: "multiple-select",
+                options: [
+                    "SharePoint version history (stores up to 50,000 versions)",
+                    "OneDrive version history (30 days for personal files)",
+                    "SharePoint recycle bin (93 days retention)",
+                    "SharePoint retention policies for compliance",
+                    "Teams file versioning (inherited from SharePoint)"
+                ],
+                correct: [0, 2, 3, 4]
+            },
+            {
+                section: "Collaboration Solutions",
+                scenario: "A global company has teams collaborating across Word documents stored in SharePoint. A user in Tokyo and a user in New York open the same document at 9 AM their local time to edit different sections. What happens?",
+                question: "How does co-authoring handle this simultaneous editing scenario?",
+                type: "multiple-choice",
+                options: [
+                    "The first person to open gets edit access; the second person gets read-only",
+                    "Both can edit simultaneously and see each other's changes in real-time with different colored cursors",
+                    "The system creates two separate versions that must be manually merged later",
+                    "The document locks for editing and users must take turns"
+                ],
+                correct: 1
+            },
+            {
+                section: "Collaboration Solutions",
+                scenario: "TechStartup needs to share a 300MB product demo video with a potential client who doesn't have a Microsoft account. Requirements: Client can view/download without signing in, Link should expire after 7 days for security, Client can't edit or reshare the file, Track if client accessed the file.",
+                question: "What is the best sharing method from OneDrive or SharePoint?",
+                type: "multiple-choice",
+                options: [
+                    "Create an 'Anyone with the link' sharing link with expiration date set to 7 days",
+                    "Add the client as a guest user first, then share the file",
+                    "Email the file as an attachment",
+                    "Use Teams to share the file in a private channel"
+                ],
+                correct: 0
+            },
+            {
+                section: "Collaboration Solutions",
+                scenario: "A department wants to create a Teams meeting with: 500 attendees, Q&A feature for questions, Polling during presentation, Breakout rooms for small group discussions, Recording for those who can't attend live, Live captions for accessibility.",
+                question: "Which of these features are available in Microsoft Teams meetings? (Select all that apply)",
+                type: "multiple-select",
+                options: [
+                    "Support for 500+ attendees (up to 10,000 with proper licensing)",
+                    "Q&A feature for organized questions",
+                    "Polling and surveys during meetings",
+                    "Breakout rooms for subgroups",
+                    "Meeting recording and live captions"
+                ],
+                correct: [0, 1, 2, 3, 4]
+            },
+            {
+                section: "Collaboration Solutions",
+                scenario: "A company wants to integrate third-party applications into their Teams workspace. They want to add: Trello boards as tabs in project channels, Salesforce customer data accessible within Teams, Custom company app for time tracking. They want these apps to appear directly in Teams without switching windows.",
+                question: "How can Teams integrate with external applications?",
+                type: "multiple-choice",
+                options: [
+                    "Teams doesn't support third-party apps - only Microsoft apps work",
+                    "Apps can be added as tabs, bots, and connectors from the Teams app store or custom apps",
+                    "External apps can only be accessed via links, not integrated directly",
+                    "Only Power Platform apps can be integrated into Teams"
+                ],
+                correct: 1
+            },
+
+            // SECTION 4: SECURITY AND COMPLIANCE (4 questions - Complex scenarios)
+            {
+                section: "Security and Compliance",
+                scenario: "A law firm has strict requirements: Prevent employees from emailing client social security numbers externally, Block sharing of documents containing credit card numbers via Teams or OneDrive, Alert compliance team when sensitive health information is detected, Allow sharing within the organization, Scan both email and file storage, Use built-in patterns to detect sensitive data types.",
+                question: "Which Microsoft 365 feature is specifically designed for this comprehensive data protection scenario?",
+                type: "multiple-choice",
+                options: [
+                    "Microsoft Defender for Office 365",
+                    "Data Loss Prevention (DLP) policies",
+                    "Sensitivity labels",
+                    "Azure Information Protection"
+                ],
+                correct: 1
+            },
+            {
+                section: "Security and Compliance",
+                scenario: "An organization wants to implement Zero Trust principles. Requirements: Verify explicitly - every access request authenticated and authorized, Use least privilege - limit access with JIT/JEA, Assume breach - minimize blast radius, verify end-to-end encryption. They need to implement policies that evaluate user, location, device, application, and risk in real-time to make access decisions.",
+                question: "Which Microsoft 365 features are core components of Zero Trust implementation? (Select all that apply)",
+                type: "multiple-select",
+                options: [
+                    "Conditional Access for policy-based access control",
+                    "Microsoft Entra ID Protection for risk-based decisions",
+                    "Privileged Identity Management for least-privilege admin access",
+                    "Microsoft Defender for endpoint and application protection",
+                    "Security Defaults for basic security"
+                ],
+                correct: [0, 1, 2, 3]
+            },
+            {
+                section: "Security and Compliance",
+                scenario: "A healthcare organization needs comprehensive threat protection: Email protection against phishing and malware, Safe attachments that detonate in sandbox, Safe links that check URLs at click time, Protection for Teams, SharePoint, OneDrive, Automated investigation and response for threats, Attack simulation training for users.",
+                question: "Which Microsoft Defender component provides this comprehensive email and collaboration protection?",
+                type: "multiple-choice",
+                options: [
+                    "Microsoft Defender for Endpoint",
+                    "Microsoft Defender for Office 365",
+                    "Microsoft Defender for Identity",
+                    "Microsoft Defender for Cloud Apps"
+                ],
+                correct: 1
+            },
+            {
+                section: "Security and Compliance",
+                scenario: "A company's Secure Score is 45% with 234 improvement actions available. They want to prioritize actions that will: Have the biggest security impact, Are easiest to implement, Don't disrupt users significantly. The dashboard shows some actions worth 10 points (like 'Enable MFA for admins') and others worth 2 points (like 'Configure audit log retention').",
+                question: "What is the recommended approach to improving Secure Score efficiently?",
+                type: "multiple-choice",
+                options: [
+                    "Implement all 234 actions in order from highest to lowest point value",
+                    "Focus on high-impact actions first (high score value), then easier wins, while considering user impact",
+                    "Only implement actions worth 10+ points to maximize score quickly",
+                    "Ignore Secure Score and implement security based on company policy only"
+                ],
+                correct: 1
+            },
+
+            // SECTION 5: PRICING AND LICENSING (2 questions - Scenario-based)
+            {
+                section: "Pricing and Licensing",
+                scenario: "TechCorp is growing from 280 employees to 350 employees. They currently use Microsoft 365 Business Premium. As they exceed 300 users, they need to: Maintain current functionality (Office apps, Teams, SharePoint, Exchange), Add advanced security features like Defender for Endpoint, Implement compliance tools for upcoming audit, Support more than 300 users.",
+                question: "What licensing change is required and why?",
+                type: "multiple-choice",
+                options: [
+                    "Stay with Business Premium - it supports up to 500 users",
+                    "Upgrade to Microsoft 365 E3 - Business plans have 300-user limit",
+                    "Purchase additional Business Premium licenses - no limit per organization",
+                    "Downgrade to Business Basic to save costs with more users"
+                ],
+                correct: 1
+            },
+            {
+                section: "Pricing and Licensing",
+                scenario: "A non-profit organization wants to understand their payment options for Microsoft 365 E3 for 100 users. They have limited cash flow and want to: Pay monthly to manage cash flow, Get the best possible price, Ensure service continuity, Have flexibility to add users mid-term.",
+                question: "Which billing option best balances their needs?",
+                type: "multiple-choice",
+                options: [
+                    "Annual commitment with monthly payments - provides discount while spreading payments",
+                    "Month-to-month billing - maximum flexibility but higher per-user cost",
+                    "One-time 3-year purchase - lowest cost but requires large upfront payment",
+                    "Quarterly billing - balanced approach (not actually available)"
+                ],
+                correct: 0
+            }
+        ];
+
+        let currentQuestion = 0;
+        let answers = {};
+        let flagged = new Set();
+        let timeRemaining = 50 * 60; // 50 minutes in seconds
+        let timerInterval;
+
+        function initializeExam() {
+            renderQuestionNavigation();
+            renderQuestions();
+            showQuestion(0);
+            startTimer();
+        }
+
+        function renderQuestionNavigation() {
+            const nav = document.getElementById('question-nav');
+            questions.forEach((_, index) => {
+                const btn = document.createElement('button');
+                btn.className = 'nav-button';
+                btn.textContent = index + 1;
+                btn.onclick = () => showQuestion(index);
+                nav.appendChild(btn);
+            });
+        }
+
+        function renderQuestions() {
+            const container = document.getElementById('questions-container');
+            questions.forEach((q, index) => {
+                const qDiv = document.createElement('div');
+                qDiv.className = 'question-container';
+                qDiv.id = `question-${index}`;
+                
+                let html = `<span class="question-number">Question ${index + 1} of ${questions.length}</span>`;
+                
+                if (q.scenario) {
+                    html += `
+                        <div class="scenario-box">
+                            <div class="scenario-label">📋 Business Scenario</div>
+                            <div class="scenario-text">${q.scenario}</div>
+                        </div>
+                    `;
+                }
+                
+                html += `<div class="question-text">${q.question}</div><div class="options">`;
+                
+                q.options.forEach((option, optIndex) => {
+                    const inputType = q.type === 'multiple-select' ? 'checkbox' : 'radio';
+                    const inputName = q.type === 'multiple-select' ? `q${index}[]` : `q${index}`;
+                    html += `
+                        <label class="option" onclick="selectOption(${index}, ${optIndex}, '${q.type}')">
+                            <input type="${inputType}" name="${inputName}" value="${optIndex}">
+                            ${option}
+                        </label>
+                    `;
+                });
+                
+                html += '</div>';
+                qDiv.innerHTML = html;
+                container.appendChild(qDiv);
+            });
+        }
+
+        function showQuestion(index) {
+            document.querySelectorAll('.question-container').forEach(q => q.classList.remove('active'));
+            document.getElementById(`question-${index}`).classList.add('active');
+            
+            document.querySelectorAll('.nav-button').forEach((btn, i) => {
+                btn.classList.remove('current');
+                if (i === index) btn.classList.add('current');
+            });
+            
+            currentQuestion = index;
+            updateNavigationButtons();
+            updateFlagButton();
+        }
+
+        function selectOption(questionIndex, optionIndex, type) {
+            const question = questions[questionIndex];
+            
+            if (type === 'multiple-select') {
+                if (!answers[questionIndex]) answers[questionIndex] = [];
+                const idx = answers[questionIndex].indexOf(optionIndex);
+                if (idx > -1) {
+                    answers[questionIndex].splice(idx, 1);
+                } else {
+                    answers[questionIndex].push(optionIndex);
+                }
+            } else {
+                answers[questionIndex] = optionIndex;
+            }
+            
+            updateProgress();
+            updateNavButton(questionIndex);
+        }
+
+        function updateProgress() {
+            const answered = Object.keys(answers).length;
+            document.getElementById('progress').style.width = `${(answered / questions.length) * 100}%`;
+            document.getElementById('progress').textContent = `${answered}/${questions.length}`;
+            document.getElementById('answered-count').textContent = `${answered}/${questions.length}`;
+        }
+
+        function updateNavButton(index) {
+            const btn = document.querySelectorAll('.nav-button')[index];
+            if (answers[index] !== undefined) {
+                btn.classList.add('answered');
+            }
+        }
+
+        function toggleFlag() {
+            if (flagged.has(currentQuestion)) {
+                flagged.delete(currentQuestion);
+            } else {
+                flagged.add(currentQuestion);
+            }
+            updateFlagButton();
+            updateNavButtonFlag(currentQuestion);
+        }
+
+        function updateFlagButton() {
+            const btn = document.getElementById('flag-btn');
+            if (flagged.has(currentQuestion)) {
+                btn.classList.add('flagged');
+                btn.textContent = '🚩 Flagged';
+            } else {
+                btn.classList.remove('flagged');
+                btn.textContent = '🚩 Flag for Review';
+            }
+        }
+
+        function updateNavButtonFlag(index) {
+            const btn = document.querySelectorAll('.nav-button')[index];
+            if (flagged.has(index)) {
+                btn.classList.add('flagged');
+            } else {
+                btn.classList.remove('flagged');
+            }
+        }
+
+        function nextQuestion() {
+            if (currentQuestion < questions.length - 1) {
+                showQuestion(currentQuestion + 1);
+            } else {
+                submitExam();
+            }
+        }
+
+        function previousQuestion() {
+            if (currentQuestion > 0) {
+                showQuestion(currentQuestion - 1);
+            }
+        }
+
+        function updateNavigationButtons() {
+            const prevBtn = document.getElementById('prev-btn');
+            const nextBtn = document.getElementById('next-btn');
+            
+            prevBtn.disabled = currentQuestion === 0;
+            prevBtn.style.opacity = currentQuestion === 0 ? '0.5' : '1';
+            
+            if (currentQuestion === questions.length - 1) {
+                nextBtn.textContent = 'Submit Exam';
+                nextBtn.className = 'nav-btn submit-btn';
+            } else {
+                nextBtn.textContent = 'Next →';
+                nextBtn.className = 'nav-btn next-btn';
+            }
+        }
+
+        function startTimer() {
+            const timerEl = document.getElementById('timer');
+            timerInterval = setInterval(() => {
+                timeRemaining--;
+                const minutes = Math.floor(timeRemaining / 60);
+                const seconds = timeRemaining % 60;
+                timerEl.textContent = `${minutes}:${seconds.toString().padStart(2, '0')}`;
+                
+                if (timeRemaining <= 300) { // 5 minutes warning
+                    timerEl.classList.add('warning');
+                }
+                
+                if (timeRemaining <= 0) {
+                    clearInterval(timerInterval);
+                    submitExam();
+                }
+            }, 1000);
+        }
+
+        function submitExam() {
+            const unanswered = questions.length - Object.keys(answers).length;
+            if (unanswered > 0) {
+                const confirm = window.confirm(`You have ${unanswered} unanswered question(s). Submit anyway?`);
+                if (!confirm) return;
+            }
+            
+            clearInterval(timerInterval);
+            calculateResults();
+        }
+
+        function calculateResults() {
+            let totalScore = 0;
+            const sectionScores = {};
+            
+            questions.forEach((q, index) => {
+                const section = q.section;
+                if (!sectionScores[section]) {
+                    sectionScores[section] = { correct: 0, total: 0 };
+                }
+                sectionScores[section].total++;
+                
+                const userAnswer = answers[index];
+                let isCorrect = false;
+                
+                if (q.type === 'multiple-select') {
+                    const correctSet = new Set(q.correct);
+                    const userSet = new Set(userAnswer || []);
+                    isCorrect = correctSet.size === userSet.size && 
+                               [...correctSet].every(x => userSet.has(x));
+                } else {
+                    isCorrect = userAnswer === q.correct;
+                }
+                
+                if (isCorrect) {
+                    totalScore += (1000 / questions.length);
+                    sectionScores[section].correct++;
+                }
+            });
+            
+            displayResults(Math.round(totalScore), sectionScores);
+        }
+
+        function displayResults(score, sectionScores) {
+            document.getElementById('exam-content').style.display = 'none';
+            const resultsDiv = document.getElementById('results');
+            resultsDiv.className = 'results-container active';
+            
+            const passed = score >= 700;
+            
+            let html = `
+                <h2 style="font-size: 32px; color: #1f2937; margin-bottom: 20px;">
+                    ${passed ? '🎉 Congratulations!' : '📊 Exam Complete'}
+                </h2>
+                <div class="score-display ${passed ? 'pass' : ''}">${score}/1000</div>
+                <p style="font-size: 24px; font-weight: bold; color: ${passed ? '#10b981' : '#dc2626'}; margin: 20px 0;">
+                    ${passed ? 'You PASSED! 🎓' : 'Keep Studying - You Can Do This! 💪'}
+                </p>
+                <p style="font-size: 16px; color: #6b7280; margin-bottom: 30px;">
+                    ${passed ? 'Excellent work! You are ready for the real exam.' : 
+                    'This is a very difficult practice exam. Review your answers and try again!'}
+                </p>
+                
+                <div class="section-breakdown">
+                    <h3 style="margin-bottom: 20px; font-size: 20px;">Section Performance:</h3>
+            `;
+            
+            for (const [section, scores] of Object.entries(sectionScores)) {
+                const percentage = Math.round((scores.correct / scores.total) * 100);
+                html += `
+                    <div class="section-score">
+                        <span><strong>${section}</strong></span>
+                        <span>${scores.correct}/${scores.total} (${percentage}%)</span>
+                    </div>
+                `;
+            }
+            
+            html += `
+                </div>
+                <div style="margin-top: 40px;">
+                    <button onclick="reviewAnswers()" class="nav-btn submit-btn">
+                        📝 Review Answers with Explanations
+                    </button>
+                </div>
+            `;
+            
+            resultsDiv.innerHTML = html;
+        }
+
+        function reviewAnswers() {
+            alert('Answer review feature: Check the separate Answer Key document for detailed explanations of all questions!');
+        }
+
+        // Initialize exam when page loads
+        initializeExam();
+    </script>
+</body>
+</html>
