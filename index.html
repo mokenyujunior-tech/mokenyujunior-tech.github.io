@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MS-900 Practice Exam - Microsoft 365 Fundamentals</title>
+    <title>Mokenyu Akumbom Junior Kezong - IT Portfolio</title>
     <style>
         * {
             margin: 0;
@@ -13,1633 +13,967 @@
 
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: #f5f5f5;
-            color: #333;
-        }
-
-        .exam-container {
-            max-width: 1200px;
-            margin: 0 auto;
-            background: white;
-            min-height: 100vh;
-        }
-
-        .header {
-            background: #0078d4;
-            color: white;
-            padding: 15px 30px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-        }
-
-        .header h1 {
-            font-size: 20px;
-            font-weight: 600;
-        }
-
-        .timer {
-            font-size: 18px;
-            font-weight: bold;
-            padding: 8px 16px;
-            background: rgba(255,255,255,0.2);
-            border-radius: 4px;
-        }
-
-        .timer.warning {
-            background: #dc3545;
-            animation: pulse 1s infinite;
-        }
-
-        @keyframes pulse {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0.7; }
-        }
-
-        .progress-bar {
-            height: 8px;
-            background: #e0e0e0;
-        }
-
-        .progress-fill {
-            height: 100%;
-            background: #0078d4;
-            transition: width 0.3s ease;
-        }
-
-        .main-content {
-            display: flex;
-            min-height: calc(100vh - 150px);
-        }
-
-        .question-nav {
-            width: 200px;
-            background: #fafafa;
-            padding: 20px;
-            border-right: 1px solid #e0e0e0;
-            overflow-y: auto;
-        }
-
-        .question-nav h3 {
-            font-size: 14px;
-            margin-bottom: 15px;
-            color: #666;
-        }
-
-        .nav-grid {
-            display: grid;
-            grid-template-columns: repeat(5, 1fr);
-            gap: 8px;
-        }
-
-        .nav-item {
-            width: 32px;
-            height: 32px;
-            border: 2px solid #ccc;
-            background: white;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            font-size: 12px;
-            font-weight: 600;
-            border-radius: 4px;
-            transition: all 0.2s;
-        }
-
-        .nav-item:hover {
-            border-color: #0078d4;
-        }
-
-        .nav-item.current {
-            background: #0078d4;
-            color: white;
-            border-color: #0078d4;
-        }
-
-        .nav-item.answered {
-            background: #28a745;
-            color: white;
-            border-color: #28a745;
-        }
-
-        .nav-item.flagged {
-            background: #ffc107;
-            color: #333;
-            border-color: #ffc107;
-        }
-
-        .question-area {
-            flex: 1;
-            padding: 40px;
-            overflow-y: auto;
-        }
-
-        .question-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 30px;
-            padding-bottom: 15px;
-            border-bottom: 2px solid #e0e0e0;
-        }
-
-        .question-number {
-            font-size: 16px;
-            font-weight: 600;
-            color: #666;
-        }
-
-        .flag-btn {
-            padding: 8px 20px;
-            background: white;
-            border: 2px solid #ffc107;
-            color: #333;
-            cursor: pointer;
-            font-size: 14px;
-            font-weight: 600;
-            border-radius: 4px;
-            transition: all 0.2s;
-        }
-
-        .flag-btn:hover {
-            background: #ffc107;
-        }
-
-        .flag-btn.flagged {
-            background: #ffc107;
-        }
-
-        .question-text {
-            font-size: 18px;
+            background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
+            color: #e0e0e0;
             line-height: 1.6;
-            margin-bottom: 30px;
-            font-weight: 500;
         }
 
-        .case-study {
-            background: #f8f9fa;
-            border-left: 4px solid #0078d4;
-            padding: 20px;
-            margin-bottom: 30px;
-            border-radius: 4px;
+        html {
+            scroll-behavior: smooth;
         }
 
-        .case-study h4 {
-            margin-bottom: 15px;
-            color: #0078d4;
+        /* Navigation */
+        nav {
+            background: #000;
+            padding: 1rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0, 255, 255, 0.3);
         }
 
-        .options {
-            margin-top: 25px;
-        }
-
-        .option {
-            background: #f8f9fa;
-            border: 2px solid #e0e0e0;
-            padding: 15px 20px;
-            margin-bottom: 12px;
-            border-radius: 6px;
-            cursor: pointer;
-            transition: all 0.2s;
+        nav ul {
+            list-style: none;
             display: flex;
-            align-items: center;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 2rem;
+            padding: 0 2rem;
+            position: relative;
         }
 
-        .option:hover {
-            border-color: #0078d4;
-            background: #e7f3ff;
+        nav li {
+            position: relative;
         }
 
-        .option.selected {
-            background: #0078d4;
-            border-color: #0078d4;
-            color: white;
+        /* Dropdown Menu */
+        .dropdown {
+            position: relative;
         }
 
-        .option input[type="radio"],
-        .option input[type="checkbox"] {
-            margin-right: 15px;
-            width: 20px;
-            height: 20px;
-            cursor: pointer;
-        }
-
-        .drag-drop-area {
-            display: flex;
-            gap: 30px;
-            margin-top: 25px;
-        }
-
-        .drag-items {
-            flex: 1;
-            background: #f8f9fa;
-            padding: 20px;
-            border-radius: 6px;
-        }
-
-        .drag-items h4 {
-            margin-bottom: 15px;
-            color: #666;
-        }
-
-        .drag-item {
-            background: white;
-            border: 2px solid #0078d4;
-            padding: 12px;
-            margin-bottom: 10px;
-            border-radius: 4px;
-            cursor: move;
-            font-size: 14px;
-        }
-
-        .drop-zones {
-            flex: 1;
-        }
-
-        .drop-zone {
-            background: #f8f9fa;
-            border: 2px dashed #ccc;
-            padding: 15px;
-            margin-bottom: 15px;
-            border-radius: 6px;
-            min-height: 50px;
-        }
-
-        .drop-zone.drag-over {
-            background: #e7f3ff;
-            border-color: #0078d4;
-        }
-
-        .drop-zone .drag-item {
-            cursor: pointer;
-        }
-
-        .navigation-buttons {
-            display: flex;
-            justify-content: space-between;
-            margin-top: 40px;
-            padding-top: 30px;
-            border-top: 2px solid #e0e0e0;
-        }
-
-        .nav-btn {
-            padding: 12px 30px;
-            font-size: 16px;
-            font-weight: 600;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-            transition: all 0.2s;
-        }
-
-        .nav-btn.previous {
-            background: #6c757d;
-            color: white;
-        }
-
-        .nav-btn.previous:hover {
-            background: #5a6268;
-        }
-
-        .nav-btn.previous:disabled {
-            background: #ccc;
-            cursor: not-allowed;
-        }
-
-        .nav-btn.next {
-            background: #0078d4;
-            color: white;
-        }
-
-        .nav-btn.next:hover {
-            background: #006cbd;
-        }
-
-        .nav-btn.submit {
-            background: #28a745;
-            color: white;
-        }
-
-        .nav-btn.submit:hover {
-            background: #218838;
-        }
-
-        .results-screen {
+        .dropdown-content {
             display: none;
-            padding: 40px;
-            text-align: center;
+            position: absolute;
+            background: #000;
+            min-width: 200px;
+            box-shadow: 0 8px 16px rgba(0, 255, 255, 0.3);
+            z-index: 1000;
+            top: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            border-radius: 5px;
+            margin-top: 0.5rem;
+            border: 1px solid #00ffff;
         }
 
-        .results-screen.active {
+        .dropdown-content.show {
             display: block;
         }
 
-        .score-display {
-            font-size: 72px;
-            font-weight: bold;
-            color: #0078d4;
-            margin: 30px 0;
-        }
-
-        .pass-fail {
-            font-size: 36px;
-            font-weight: bold;
-            margin: 20px 0;
-        }
-
-        .pass-fail.pass {
-            color: #28a745;
-        }
-
-        .pass-fail.fail {
-            color: #dc3545;
-        }
-
-        .section-breakdown {
-            max-width: 800px;
-            margin: 40px auto;
+        .dropdown-content button {
+            color: #00ffff;
+            padding: 0.8rem 1rem;
+            text-decoration: none;
+            display: block;
+            width: 100%;
             text-align: left;
-        }
-
-        .section-item {
-            background: #f8f9fa;
-            padding: 20px;
-            margin-bottom: 15px;
-            border-radius: 6px;
-            border-left: 4px solid #0078d4;
-        }
-
-        .section-name {
-            font-weight: 600;
-            margin-bottom: 10px;
-        }
-
-        .section-bar {
-            height: 20px;
-            background: #e0e0e0;
-            border-radius: 10px;
-            overflow: hidden;
-            margin-top: 10px;
-        }
-
-        .section-bar-fill {
-            height: 100%;
-            background: #0078d4;
-            transition: width 0.5s ease;
-        }
-
-        .restart-btn {
-            margin-top: 30px;
-            padding: 15px 40px;
-            background: #0078d4;
-            color: white;
+            background: none;
             border: none;
-            border-radius: 4px;
-            font-size: 16px;
-            font-weight: 600;
             cursor: pointer;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-size: 1rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
         }
 
-        .restart-btn:hover {
-            background: #006cbd;
+        .dropdown-content button:hover {
+            background: #00ffff;
+            color: #000;
         }
 
-        .instructions {
-            background: #fff3cd;
-            border: 1px solid #ffc107;
-            padding: 20px;
-            margin-bottom: 30px;
-            border-radius: 6px;
+        nav a, .nav-btn {
+            color: #00ffff;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+            padding: 0.5rem 1rem;
+            border-radius: 5px;
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
 
-        .instructions h3 {
-            color: #856404;
-            margin-bottom: 10px;
+        nav a:hover, .nav-btn:hover {
+            background: #00ffff;
+            color: #000;
+            transform: translateY(-2px);
         }
 
-        .instructions p {
-            color: #856404;
-            line-height: 1.6;
+        .nav-btn.active {
+            background: #00ffff;
+            color: #000;
+            box-shadow: 0 4px 10px rgba(0, 255, 255, 0.4);
         }
 
+        /* Sub-navigation for Personal Information */
+        .sub-nav {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+            padding-bottom: 1rem;
+            border-bottom: 2px solid #333;
+        }
+
+        .sub-nav-btn {
+            color: #4ddbff;
+            background: none;
+            border: none;
+            font-size: 1rem;
+            font-weight: 600;
+            padding: 0.5rem 1.5rem;
+            cursor: pointer;
+            border-radius: 5px;
+            transition: all 0.3s ease;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        .sub-nav-btn:hover {
+            background: #2d2d2d;
+            color: #00ffff;
+        }
+
+        .sub-nav-btn.active {
+            background: #00ffff;
+            color: #000;
+        }
+
+        .sub-content {
+            display: none;
+        }
+
+        .sub-content.active {
+            display: block;
+        }
+
+        /* Header */
+        header {
+            background: linear-gradient(135deg, #000 0%, #1a1a1a 100%);
+            padding: 4rem 2rem;
+            text-align: center;
+            border-bottom: 3px solid #00ffff;
+        }
+
+        header h1 {
+            font-size: 3rem;
+            margin-bottom: 0.5rem;
+            color: #00ffff;
+            text-shadow: 0 0 20px rgba(0, 255, 255, 0.5);
+        }
+
+        header p {
+            font-size: 1.3rem;
+            color: #a0a0a0;
+        }
+
+        /* Container */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 3rem 2rem;
+            min-height: 70vh;
+        }
+
+        /* Sections */
+        section {
+            background: #1a1a1a;
+            padding: 3rem;
+            margin: 2rem 0;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0, 255, 255, 0.2);
+            border: 1px solid #333;
+            display: none;
+            animation: fadeIn 0.5s ease-in-out;
+        }
+
+        section.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        section h2 {
+            color: #00ffff;
+            font-size: 2.2rem;
+            margin-bottom: 1.5rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid #00ffff;
+        }
+
+        section h3 {
+            color: #4ddbff;
+            font-size: 1.5rem;
+            margin-top: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        /* Profile Section */
+        .profile-content {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: #d0d0d0;
+        }
+
+        /* Resume Section */
+        .resume-section {
+            margin-bottom: 2rem;
+        }
+
+        .resume-section h4 {
+            color: #66e0ff;
+            font-size: 1.2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .job-title {
+            color: #00ffff;
+            font-weight: 600;
+            font-size: 1.1rem;
+        }
+
+        .date {
+            color: #808080;
+            font-style: italic;
+        }
+
+        .company {
+            color: #4ddbff;
+            font-weight: 500;
+        }
+
+        ul {
+            margin-left: 2rem;
+            margin-top: 0.5rem;
+        }
+
+        li {
+            margin-bottom: 0.5rem;
+            color: #d0d0d0;
+        }
+
+        /* Skills Grid */
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .skill-item {
+            background: #2d2d2d;
+            padding: 1rem;
+            border-radius: 8px;
+            border-left: 4px solid #00ffff;
+            transition: all 0.3s ease;
+        }
+
+        .skill-item:hover {
+            transform: translateX(5px);
+            box-shadow: 0 3px 10px rgba(0, 255, 255, 0.3);
+        }
+
+        /* Projects */
+        .project-card {
+            background: #2d2d2d;
+            padding: 2rem;
+            margin: 1.5rem 0;
+            border-radius: 10px;
+            border-left: 5px solid #00ffff;
+            transition: all 0.3s ease;
+        }
+
+        .project-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(0, 255, 255, 0.4);
+        }
+
+        .project-card h4 {
+            color: #00ffff;
+            font-size: 1.4rem;
+            margin-bottom: 1rem;
+        }
+
+        /* Education Cards */
+        .education-card {
+            background: #2d2d2d;
+            padding: 1.5rem;
+            margin: 1rem 0;
+            border-radius: 10px;
+            border: 2px solid #00ffff;
+        }
+
+        .education-card h4 {
+            color: #00ffff;
+            font-size: 1.3rem;
+        }
+
+        .document-link {
+            display: inline-block;
+            background: #00ffff;
+            color: #000;
+            padding: 0.8rem 1.5rem;
+            margin: 0.5rem 0.5rem 0.5rem 0;
+            border-radius: 5px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-size: 1rem;
+        }
+
+        .document-link:hover {
+            background: #4ddbff;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 10px rgba(0, 255, 255, 0.5);
+        }
+
+        /* Contact Info */
+        .contact-info {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            font-size: 1.1rem;
+        }
+
+        .contact-item {
+            color: #00ffff;
+        }
+
+        .contact-item strong {
+            color: #4ddbff;
+        }
+
+        /* Highlight Box */
+        .highlight-box {
+            background: #2d2d2d;
+            padding: 1.5rem;
+            border-radius: 8px;
+            border-left: 4px solid #00ffff;
+            margin: 1.5rem 0;
+        }
+
+        /* Footer */
+        footer {
+            background: #000;
+            color: #808080;
+            text-align: center;
+            padding: 2rem;
+            margin-top: 3rem;
+            border-top: 3px solid #00ffff;
+        }
+
+        /* Responsive */
         @media (max-width: 768px) {
-            .main-content {
+            header h1 {
+                font-size: 2rem;
+            }
+            
+            nav ul {
                 flex-direction: column;
+                gap: 1rem;
             }
-
-            .question-nav {
-                width: 100%;
-                border-right: none;
-                border-bottom: 1px solid #e0e0e0;
-            }
-
-            .question-area {
-                padding: 20px;
-            }
-
-            .drag-drop-area {
-                flex-direction: column;
+            
+            section {
+                padding: 2rem 1.5rem;
             }
         }
     </style>
 </head>
 <body>
-    <div class="exam-container">
-        <div class="header">
-            <h1>MS-900: Microsoft 365 Fundamentals - Practice Exam</h1>
-            <div class="timer" id="timer">50:00</div>
-        </div>
-        
-        <div class="progress-bar">
-            <div class="progress-fill" id="progressBar"></div>
-        </div>
+    <!-- Navigation -->
+    <nav>
+        <ul>
+            <li><button class="nav-btn" data-target="profile">Profile</button></li>
+            <li class="dropdown">
+                <button class="nav-btn">Personal Information ▼</button>
+                <div class="dropdown-content">
+                    <button class="dropdown-item" data-target="personal-info" data-sub-target="resume-content">Resume</button>
+                    <button class="dropdown-item" data-target="personal-info" data-sub-target="cover-letter-content">Cover Letter</button>
+                </div>
+            </li>
+            <li><button class="nav-btn" data-target="work-samples">Work Samples</button></li>
+            <li><button class="nav-btn" data-target="education">Education & Acknowledgements</button></li>
+            <li><button class="nav-btn" data-target="contact">Contact</button></li>
+        </ul>
+    </nav>
 
-        <div class="main-content" id="examContent">
-            <div class="question-nav">
-                <h3>Questions</h3>
-                <div class="nav-grid" id="navGrid"></div>
+    <!-- Header -->
+    <header>
+        <h1>Mokenyu Akumbom Junior Kezong</h1>
+        <p>Microsoft 365 Administrator | Cloud Professional | IT Support Specialist</p>
+    </header>
+
+    <!-- Main Content -->
+    <div class="container">
+        
+        <!-- SECTION 1: PROFILE -->
+        <section id="profile">
+            <h2>Professional Profile</h2>
+            <div class="profile-content">
+                <p>I'm Mokenyu Akumbom Junior Kezong, a dedicated Microsoft 365 Administrator and cloud professional pursuing Post-Graduate studies at George Brown College in Toronto. With a unique background combining a BSc in Accounting from the University of Buea, Cameroon, and specialized training in Microsoft 365 administration, I bring analytical thinking and strong problem-solving skills to cloud environments.</p>
+                
+                <p style="margin-top: 1rem;">My technical expertise spans Microsoft 365 administration, Windows Server management, and PowerShell scripting. I'm passionate about automating routine tasks, streamlining system workflows, and empowering users through efficient technical solutions. I specialize in creating secure, reliable, and productive cloud environments that drive organizational success.</p>
+                
+                <p style="margin-top: 1rem;">I have hands-on experience designing Teams governance frameworks, optimizing M365 licensing costs, creating PowerShell automation scripts for employee lifecycle management, and documenting complete migration strategies from on-premise to cloud environments. My technical skills are complemented by exceptional communication abilities developed through teaching over 7,000 students across diverse cultural backgrounds.</p>
+                
+                <p style="margin-top: 1rem;">I'm actively seeking opportunities as a Microsoft 365 Administrator, Help Desk Technician, or Cloud Support Engineer where I can leverage my technical skills, collaborative spirit, and commitment to continuous learning to deliver excellence in cloud administration and user support.</p>
+            </div>
+        </section>
+
+        <!-- SECTION 2: PERSONAL INFORMATION -->
+        <section id="personal-info">
+            <h2>Personal Information</h2>
+
+            <!-- Resume Sub-content -->
+            <div id="resume-content" class="sub-content active">
+            
+            <div class="resume-section">
+                <h3>OBJECTIVE:</h3>
+                <p>Pursuing a Microsoft 365 Administration position in the cloud field. Dedicated to applying my skills in providing a secure, reliable, and productive cloud environment while effectively communicating with the team to achieve organizational goals.</p>
             </div>
 
-            <div class="question-area" id="questionArea"></div>
-        </div>
+            <div class="resume-section">
+                <h3>HIGHLIGHTS OF QUALIFICATIONS:</h3>
+                <ul>
+                    <li>Excellent communication and collaboration skills with the ability to diversely work effectively with architects, engineers, and business stakeholders to deliver seamless migrations.</li>
+                    <li>Proven ability to troubleshoot challenges and communicate solutions effectively across all teams.</li>
+                    <li>Demonstrated ability in analysing and documenting current-state infrastructure and application architectures.</li>
+                    <li>Designed and implemented a complete Teams governance framework for a mid-sized company.</li>
+                    <li>Analyzed M365 licensing for a fictional company and created a cost optimization plan.</li>
+                    <li>Created PowerShell scripts that automate the employee onboarding and offboarding process in M365.</li>
+                    <li>Created a complete documentation for migrating a fictional small accounting firm (25 users) from on-premise email to Microsoft 365.</li>
+                </ul>
+            </div>
 
-        <div class="results-screen" id="resultsScreen"></div>
+            <div class="resume-section">
+                <h3>TECHNICAL SKILLS:</h3>
+                <ul>
+                    <li>Microsoft 365 administration</li>
+                    <li>Windows Server management</li>
+                    <li>PowerShell scripting</li>
+                    <li>Microsoft SharePoint Administration</li>
+                    <li>Microsoft Exchange</li>
+                </ul>
+            </div>
+
+            <div class="resume-section">
+                <h3>EDUCATION:</h3>
+                
+                <div style="margin-bottom: 1.5rem;">
+                    <p class="job-title">Post-Graduate Program</p>
+                    <p class="company">George Brown College, Toronto - Canada</p>
+                    <p class="date">September 2025 - Present (Ongoing)</p>
+                    <ul style="margin-top: 0.5rem;">
+                        <li>Deploying windows desktop settings using a provisioning package scenario</li>
+                        <li>Using PowerShell to configure windows</li>
+                        <li>Administering windows using remote PowerShell and Remote Desktop</li>
+                        <li>Using PowerShell to configure windows</li>
+                        <li>Creating and managing domains and domain controllers</li>
+                        <li>Managing networks with packet tracer logically and physically</li>
+                        <li>Connecting to my Microsoft 365 account, creating 2 users and assigning them licenses using powershell</li>
+                        <li>Created a Shared mailbox and a Distribution List.</li>
+                        <li>Sent an email to each group and traced the mails from the sender using the trace feature under mail flow in Microsoft Exchange admin center.</li>
+                    </ul>
+                </div>
+
+                <div style="margin-bottom: 1.5rem;">
+                    <p class="job-title">Bachelor of Science in Accounting</p>
+                    <p class="company">University of Buea, Buea – Cameroon</p>
+                    <p class="date">October 2020 – July 2023</p>
+                </div>
+            </div>
+
+            <div class="resume-section">
+                <h3>PROFESSIONAL EXPERIENCE:</h3>
+                
+                <div style="margin-bottom: 2rem;">
+                    <p class="job-title">English Tutor</p>
+                    <p class="company">Preply, Online</p>
+                    <p class="date">July 2025 - September 2025</p>
+                    <ul style="margin-top: 0.5rem;">
+                        <li>Delivered one-on-one lessons to a diverse range of international students, helping them improve fluency, grammar, and professional communication skills thereby improving my creative problem-solving skills.</li>
+                        <li>Acquired 20+ students in less than 1 month.</li>
+                        <li>Designed and implemented personalized learning plans tailored to the goals of the students resulting to a 5% to 10% improvement in their fluency.</li>
+                        <li>Maintained structured progress tracking and reporting for over 20+ students acquired in less than two weeks, ensuring continuous improvement and accountability.</li>
+                        <li>Demonstrated strong cross-cultural communication skills, working with learners from approximately 6 countries across different professional and academic backgrounds.</li>
+                        <li>Acquired 11 positive reviews and delivered 278 lessons of one-hour each within 6 weeks.</li>
+                    </ul>
+                </div>
+
+                <div style="margin-bottom: 2rem;">
+                    <p class="job-title">English Tutor</p>
+                    <p class="company">Native Camp, Online</p>
+                    <p class="date">November 2022 – July 2025</p>
+                    <ul style="margin-top: 0.5rem;">
+                        <li>Delivered over 7,000 twenty-five-minute lessons to approximately 1,000 Asian students.</li>
+                        <li>Demonstrated strong cross-cultural communication skills, working with learners from Asia.</li>
+                        <li>Utilized digital and interactive tools to create engaging and effective online learning environments.</li>
+                        <li>Delivered one-on-one lessons to a diverse range of international students, helping them improve fluency, grammar, and professional communication skills thereby improving my creative problem-solving skills.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="resume-section">
+                <h3>VOLUNTEER EXPERIENCE:</h3>
+                
+                <div style="margin-bottom: 1rem;">
+                    <p class="job-title">Accounting Intern</p>
+                    <p class="company">Micro Finance (TICCUL), Bamenda, Cameroon</p>
+                    <p class="date">August 2022</p>
+                    <ul style="margin-top: 0.5rem;">
+                        <li>Collaborated with my colleagues in entering and verifying member transaction data in digital accounting systems, helping maintain accurate financial records.</li>
+                        <li>Assisted in reviewing and updating digital account records of members, ensuring accuracy in daily deposits, withdrawals, and balance reconciliations.</li>
+                        <li>Worked with colleagues in solving repetitive problematic transactions discovered in some spreadsheets thereby improving my problem-solving skills.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="resume-section">
+                <h3>Professional Experience</h3>
+                
+                <div style="margin-bottom: 2rem;">
+                    <p class="job-title">English Tutor</p>
+                    <p class="company">Preply (Online)</p>
+                    <p class="date">July 2025 - September 2025</p>
+                    <ul>
+                        <li>Delivered one-on-one lessons to diverse international students, improving fluency, grammar, and professional communication skills while enhancing creative problem-solving abilities</li>
+                        <li>Acquired 20+ students in less than 1 month through excellent service delivery</li>
+                        <li>Designed and implemented personalized learning plans tailored to student goals, resulting in 5-10% improvement in fluency</li>
+                        <li>Maintained structured progress tracking and reporting for 20+ students, ensuring continuous improvement and accountability</li>
+                        <li>Demonstrated strong cross-cultural communication skills, working with learners from approximately 6 countries across different professional and academic backgrounds</li>
+                        <li>Acquired 11 positive reviews and delivered 278 one-hour lessons within 6 weeks</li>
+                    </ul>
+                </div>
+
+                <div style="margin-bottom: 2rem;">
+                    <p class="job-title">English Tutor</p>
+                    <p class="company">Native Camp (Online)</p>
+                    <p class="date">November 2022 - July 2025</p>
+                    <ul>
+                        <li>Delivered over 7,000 twenty-five-minute lessons to approximately 1,000 Japanese students</li>
+                        <li>Demonstrated strong cross-cultural communication skills, working with learners from Asia</li>
+                        <li>Utilized digital and interactive tools to create engaging and effective online learning environments</li>
+                        <li>Delivered personalized one-on-one instruction helping students improve fluency, grammar, and professional communication skills</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="resume-section">
+                <h3>Volunteer Experience</h3>
+                <div style="margin-bottom: 1rem;">
+                    <p class="job-title">Accounting Intern</p>
+                    <p class="company">Micro Finance (TICCUL), Bamenda, Cameroon</p>
+                    <p class="date">August 2022</p>
+                    <ul>
+                        <li>Collaborated with colleagues in organizing transactions concerning digital accounts for members</li>
+                        <li>Worked with team to solve regular problematic transactions discovered in spreadsheets, thereby improving problem-solving skills</li>
+                    </ul>
+                </div>
+            </div>
+            
+            </div>
+
+            <!-- Cover Letter Sub-content -->
+            <div id="cover-letter-content" class="sub-content">
+                <div class="resume-section">
+                    <div style="text-align: left; margin-bottom: 2rem;">
+                        <p><strong>Mokenyu Akumbom Junior Kezong</strong></p>
+                        <p>200 King Street East</p>
+                        <p>Toronto, Ontario, M5A 2W8</p>
+                        <p>+1 (416) 732-8825</p>
+                    </div>
+
+                    <p style="margin-bottom: 2rem;">November 25, 2025</p>
+
+                    <div style="margin-bottom: 2rem;">
+                        <p><strong>MS365 Administrator</strong></p>
+                        <p><strong>COSTI</strong></p>
+                        <p><strong>760 College St.</strong></p>
+                        <p><strong>Toronto, Ontario</strong></p>
+                    </div>
+
+                    <p style="margin-bottom: 2rem;"><strong>Re: Microsoft 365 Administrator Position</strong></p>
+
+                    <p style="margin-bottom: 1.5rem;">Dear Hiring Manager,</p>
+
+                    <p style="margin-bottom: 1.5rem;">To begin, I am writing to express my interest in the Microsoft 365 Administrator position at COSTI, which I found on Indeed. Currently completing the Cloud Computing Technologies Co-op program at George Brown College, I bring specialized expertise in M365 administration, PowerShell automation, and cloud management that aligns with your needs. I am particularly drawn to this opportunity because it allows me to leverage my technical skills while contributing to a secure and productive cloud environment.</p>
+
+                    <p style="margin-bottom: 1.5rem;">To continue, my experience includes creating PowerShell scripts for employee lifecycle automation, designing Teams governance frameworks, and documenting complete email migrations to Microsoft 365. I have hands-on skills in Exchange Online, SharePoint administration, and M365 licensing optimization. My communication abilities, developed through teaching 7000+ students internationally, enable me to provide clear technical support and work effectively across diverse teams. My analytical background in accounting enhances my ability to document processes thoroughly and identify cost-saving opportunities.</p>
+
+                    <p style="margin-bottom: 2rem;">To conclude, I am confident that my M365 administration expertise, automation capabilities, and commitment to user success would be valuable assets to COSTI. I would welcome the opportunity to discuss how my skills align with your team's objectives. I am available for an interview at your convenience and can be reached at mokenyuakumbomjuniorkezong@georgebrown.ca or +1 (416) 732-8825. Thank you for considering my application for this position. It is truly an honor.</p>
+
+                    <p style="margin-bottom: 1rem;">Respectfully yours,</p>
+
+                    <p style="font-style: italic; font-weight: 600;">MOKENYU AKUMBOM JUNIOR KEZONG</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 3: WORK SAMPLES -->
+        <section id="work-samples">
+            <h2>Work Samples & Projects</h2>
+            
+            <div class="project-card">
+                <h4>Microsoft 365 Administration & Governance Project</h4>
+                <p><strong>Skills Demonstrated:</strong> M365 Admin Center, Teams Governance, PowerShell Automation, Licensing Optimization, Migration Planning</p>
+                <p style="margin-top: 1rem;"><strong>Project Overview:</strong></p>
+                <ul>
+                    <li><strong>Teams Governance Framework:</strong> Designed and implemented a comprehensive Teams governance framework for a mid-sized company, including naming conventions, lifecycle policies, guest access controls, and compliance requirements</li>
+                    <li><strong>M365 Licensing Analysis:</strong> Conducted detailed analysis of Microsoft 365 licensing for a fictional organization, identifying optimization opportunities and creating a cost-reduction plan that maintained service quality</li>
+                    <li><strong>PowerShell Automation Scripts:</strong> Developed PowerShell scripts to automate employee onboarding and offboarding processes in M365, including account creation, license assignment, group membership, and mailbox configuration</li>
+                    <li><strong>Email Migration Documentation:</strong> Created comprehensive migration documentation for transitioning a 25-user accounting firm from on-premise Exchange to Microsoft 365, including pre-migration assessment, migration steps, post-migration validation, and rollback procedures</li>
+                    <li><strong>User Management:</strong> Connected to M365 via PowerShell, created multiple user accounts, and assigned appropriate licenses using command-line automation</li>
+                    <li><strong>Exchange Online Administration:</strong> Configured shared mailboxes and distribution lists with appropriate permissions; performed email tracing and mail flow analysis using Exchange Admin Center</li>
+                </ul>
+                <p style="margin-top: 1rem; color: #4ddbff;"><em>These projects demonstrate enterprise-level M365 administration skills, automation capabilities, and strategic planning abilities essential for modern cloud administrators.</em></p>
+            </div>
+
+            <div class="project-card">
+                <h4>Windows 11 Desktop Operating System Administration Project</h4>
+                <p><strong>Skills Demonstrated:</strong> Windows 11 Deployment, PowerShell, Security Configuration, Storage Management, File Permissions</p>
+                <p style="margin-top: 1rem;"><strong>Project Overview:</strong></p>
+                <ul>
+                    <li><strong>Windows 11 Installation:</strong> Successfully deployed Windows 11 on VMware Workstation; configured system settings and user accounts</li>
+                    <li><strong>Provisioning Packages:</strong> Created custom provisioning packages to automate local administrator account creation with secure password policies</li>
+                    <li><strong>Security Policy Configuration:</strong> Implemented User Account Control (UAC) policies through Local Group Policy Editor; configured security prompts and screen dimming for enhanced security</li>
+                    <li><strong>PowerShell Network Configuration:</strong> Used PowerShell commands to configure static IP addressing; validated network connectivity</li>
+                    <li><strong>Storage Space Management:</strong> Created and configured storage spaces with 2-way mirror redundancy for data protection; managed virtual disks and storage pools</li>
+                    <li><strong>File System Permissions:</strong> Configured NTFS permissions for authenticated users (read-only) and administrators (full control); implemented principle of least privilege</li>
+                    <li><strong>Network File Sharing:</strong> Set up network file shares with granular permissions; configured share-level and NTFS-level permissions for secure access</li>
+                    <li><strong>Application Management:</strong> Installed and configured Microsoft Store applications; managed application deployment</li>
+                    <li><strong>Data Protection:</strong> Configured File History backup solution with 30-day retention policy for disaster recovery</li>
+                    <li><strong>User Interface Customization:</strong> Customized Start Menu layout; exported taskbar configurations for enterprise deployment</li>
+                </ul>
+                <p style="margin-top: 1rem; color: #4ddbff;"><em>This project showcases enterprise Windows administration skills including security hardening, automation through PowerShell, storage management, and backup configuration critical for IT support roles.</em></p>
+            </div>
+
+            <div class="highlight-box">
+                <h4 style="color: #00ffff; margin-bottom: 1rem;">Professional Development Focus</h4>
+                <p><strong>Current Focus Areas:</strong></p>
+                <ul style="margin-top: 0.5rem;">
+                    <li>Advanced PowerShell scripting for M365 automation</li>
+                    <li>Azure Active Directory and conditional access policies</li>
+                    <li>M365 security and compliance features</li>
+                    <li>SharePoint site architecture and permissions management</li>
+                    <li>Microsoft Teams administration and governance</li>
+                    <li>Cloud migration strategies and best practices</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- SECTION 4: EDUCATION & ACKNOWLEDGEMENTS -->
+        <section id="education">
+            <h2>Education & Acknowledgements</h2>
+            
+            <h3>Academic Credentials</h3>
+            
+            <div class="education-card">
+                <h4>Post-Graduate Certificate - Cloud Computing & Systems Administration</h4>
+                <p class="company">George Brown College, Toronto, Ontario, Canada</p>
+                <p class="date">February 2025 - Present (In Progress)</p>
+                <p style="margin-top: 1rem;">Comprehensive program covering enterprise IT administration, cloud technologies, and systems management with focus on:</p>
+                <ul style="margin-top: 0.5rem;">
+                    <li>Microsoft 365 Administration & Exchange Online</li>
+                    <li>Windows Server & Desktop Operating Systems</li>
+                    <li>PowerShell Scripting & Automation</li>
+                    <li>Azure Active Directory & Cloud Identity Management</li>
+                    <li>Network Administration & Security</li>
+                    <li>Storage Management & Data Protection</li>
+                    <li>SharePoint Administration</li>
+                    <li>Teams Governance & Collaboration Tools</li>
+                </ul>
+            </div>
+
+            <div class="education-card">
+                <h4>Bachelor of Science in Accounting</h4>
+                <p class="company">University of Buea, Buea, South West Region, Cameroon</p>
+                <p class="date">October 2020 - July 2023</p>
+                <p style="margin-top: 1rem;">Developed strong analytical, problem-solving, and attention to detail skills essential for IT roles. Gained expertise in data management, financial systems, and process optimization that translates effectively to cloud administration and technical support.</p>
+            </div>
+
+            <h3 style="margin-top: 3rem;">Academic Documents</h3>
+            <div style="margin-top: 1rem;">
+                <button class="document-link" onclick="window.open('https://mokenyujunior-tech.github.io/My-Attestation.jpg', '_blank')">📄 My Attestation</button>
+                <button class="document-link" onclick="window.open('https://mokenyujunior-tech.github.io/Transcript.pdf', '_blank')">📄 Official Transcript - University of Buea</button>
+            </div>
+
+            <h3 style="margin-top: 3rem;">Letters of Recommendation</h3>
+            
+            <div class="education-card">
+                <h4>Academic Reference Letter</h4>
+                <p class="company">Dr. Arzizeh Tiesieh Tapang, Senior Lecturer</p>
+                <p class="company">Department of Accounting, Faculty of Social and Management Sciences</p>
+                <p class="company">University of Buea, Cameroon</p>
+                <p class="date">June 19, 2025</p>
+                
+                <div style="margin-top: 1rem; padding: 1.5rem; background: #2d2d2d; border-radius: 8px; font-style: italic; color: #d0d0d0;">
+                    <p>"He showed aptitude for courses in Accounting and research. He has a very competent and versatile intellect which is discriminating and fresh in orientation and bold in expression. I have been struck by his dedication to learning and capacity for sustained hard work in academics without compromising on standards and personal integrity."</p>
+                    
+                    <p style="margin-top: 1rem;">"He has indeed been a trailblazer in independent assignments and a model to other aspiring young gentlemen. His modest demeanor hides a resolute and dependable character with other sterling qualities."</p>
+                    
+                    <p style="margin-top: 1rem;">"I have no doubt that he will acquaint himself creditably as Student. I strongly recommend him with great confidence for admission."</p>
+                </div>
+                
+                <button class="document-link" style="margin-top: 1rem;" onclick="window.open('https://mokenyujunior-tech.github.io/Letter-of-Recommendation.pdf', '_blank')">📄 View Complete Letter</button>
+            </div>
+
+            <h3 style="margin-top: 3rem;">Professional Certifications & Training</h3>
+            <div class="education-card">
+                <h4>Planned Professional Certifications</h4>
+                <ul>
+                    <li><strong>Microsoft 365 Certified: Fundamentals (MS-900)</strong> - In preparation</li>
+                    <li><strong>Microsoft Certified: Azure Fundamentals (AZ-900)</strong> - Planned for 2025</li>
+                </ul>
+                <p style="margin-top: 1rem; color: #4ddbff;"><em>Committed to continuous professional development and staying current with industry-leading certifications</em></p>
+            </div>
+
+            <h3 style="margin-top: 3rem;">Key Competencies</h3>
+            <div class="highlight-box">
+                <ul>
+                    <li><strong>Technical Excellence:</strong> Hands-on experience with M365 administration, PowerShell automation, and Windows Server management</li>
+                    <li><strong>Problem-Solving:</strong> Proven ability to analyze complex technical issues and implement effective solutions</li>
+                    <li><strong>Communication:</strong> Exceptional cross-cultural communication skills developed through teaching 7,000+ students internationally</li>
+                    <li><strong>Documentation:</strong> Strong technical writing skills demonstrated through comprehensive migration planning and system documentation</li>
+                    <li><strong>Collaboration:</strong> Experience working effectively with diverse teams across different cultural backgrounds</li>
+                    <li><strong>Continuous Learning:</strong> Dedicated to staying current with evolving cloud technologies and best practices</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- SECTION 5: CONTACT -->
+        <section id="contact">
+            <h2>Contact Information</h2>
+            
+            <div class="profile-content">
+                <p style="margin-bottom: 2rem;">Thank you for visiting my portfolio! I'm actively seeking opportunities in Microsoft 365 Administration, Help Desk Support, and Cloud Engineering. Feel free to reach out to me through any of the following channels:</p>
+                
+                <div class="contact-info">
+                    <div class="contact-item">
+                        <strong>📧 Email:</strong> 
+                        <a href="mailto:mokenyuakumbomjuniorkezong@georgebrown.ca" style="color: #00ffff; text-decoration: none;">mokenyuakumbomjuniorkezong@georgebrown.ca</a>
+                    </div>
+                    <div class="contact-item">
+                        <strong>📱 Phone:</strong> +1 416 738 8935
+                    </div>
+                    <div class="contact-item">
+                        <strong>📍 Location:</strong> Toronto, Ontario, Canada
+                    </div>
+                    <div class="contact-item">
+                        <strong>💼 Status:</strong> Available for Full-Time Positions
+                    </div>
+                </div>
+
+                <div class="highlight-box" style="margin-top: 1.5rem;">
+                    <h4 style="color: #00ffff; margin-bottom: 1rem;">Why Work With Me?</h4>
+                    <ul>
+                        <li>Strong technical foundation in M365 administration and PowerShell automation</li>
+                        <li>Excellent communication skills developed through teaching 7,000+ students</li>
+                        <li>Proven ability to work effectively across diverse cultural backgrounds</li>
+                        <li>Dedicated to continuous learning and professional development</li>
+                        <li>Analytical mindset with strong problem-solving capabilities</li>
+                    </ul>
+                </div>
+
+                <p style="margin-top: 2rem; text-align: center; font-size: 1.2rem; color: #00ffff;">
+                    <strong>I look forward to connecting with you!</strong>
+                </p>
+            </div>
+        </section>
+
     </div>
 
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2025 Mokenyu Akumbom Junior Kezong | Microsoft 365 Administrator Portfolio</p>
+        <p style="margin-top: 0.5rem;">Toronto, Ontario, Canada</p>
+        <p style="margin-top: 1rem; font-size: 0.9rem;">Seeking opportunities as Microsoft 365 Administrator | Help Desk Technician | Cloud Support Engineer</p>
+    </footer>
+
     <script>
-        // Exam questions data
-        const examData = {
-            totalTime: 50 * 60, // 50 minutes in seconds
-            passingScore: 700,
-            questions: [
-                // SECTION 1: Identity and Access Management (Heavy focus - 15 questions)
-                {
-                    id: 1,
-                    type: 'multiple-choice',
-                    text: 'Your organization wants to ensure that users must verify their identity using two methods before accessing Microsoft 365 applications. Which feature should you implement?',
-                    options: [
-                        'Single Sign-On (SSO)',
-                        'Multi-Factor Authentication (MFA)',
-                        'Password Hash Synchronization',
-                        'Self-Service Password Reset (SSPR)'
-                    ],
-                    correctAnswer: 1,
-                    section: 'Identity and Access Management',
-                    explanation: 'Multi-Factor Authentication (MFA) requires users to verify their identity using two or more verification methods, such as a password and a phone code.'
-                },
-                {
-                    id: 2,
-                    type: 'multiple-choice',
-                    text: 'Which Microsoft Entra ID (formerly Azure AD) feature allows administrators to define policies that grant or block access based on conditions like user location, device state, or risk level?',
-                    options: [
-                        'Role-Based Access Control (RBAC)',
-                        'Conditional Access',
-                        'Identity Protection',
-                        'Privileged Identity Management'
-                    ],
-                    correctAnswer: 1,
-                    section: 'Identity and Access Management',
-                    explanation: 'Conditional Access is a Zero Trust policy engine that allows administrators to create if-then statements for access control based on various signals and conditions.'
-                },
-                {
-                    id: 3,
-                    type: 'true-false',
-                    text: 'Microsoft Entra ID (Azure AD) can synchronize with on-premises Active Directory to provide hybrid identity management.',
-                    correctAnswer: true,
-                    section: 'Identity and Access Management',
-                    explanation: 'True. Microsoft Entra Connect (formerly Azure AD Connect) enables synchronization between on-premises Active Directory and Microsoft Entra ID for hybrid identity scenarios.'
-                },
-                {
-                    id: 4,
-                    type: 'multiple-choice',
-                    text: 'A company wants to require MFA only when users sign in from outside the corporate network. Which Microsoft 365 feature should they use?',
-                    options: [
-                        'Security Defaults',
-                        'Conditional Access policies',
-                        'Identity Protection',
-                        'Per-user MFA'
-                    ],
-                    correctAnswer: 1,
-                    section: 'Identity and Access Management',
-                    explanation: 'Conditional Access policies allow you to create granular rules based on conditions like location, requiring MFA only for sign-ins from untrusted locations.'
-                },
-                {
-                    id: 5,
-                    type: 'drag-drop',
-                    text: 'Match each authentication method to its description:',
-                    items: [
-                        'Password Hash Sync',
-                        'Pass-through Authentication',
-                        'Federation',
-                        'Seamless SSO'
-                    ],
-                    zones: [
-                        'Synchronizes hashed passwords to the cloud',
-                        'Validates passwords against on-premises AD without storing them in cloud',
-                        'Redirects authentication to on-premises identity provider',
-                        'Allows automatic sign-in on domain-joined devices'
-                    ],
-                    correctMapping: {
-                        'Password Hash Sync': 'Synchronizes hashed passwords to the cloud',
-                        'Pass-through Authentication': 'Validates passwords against on-premises AD without storing them in cloud',
-                        'Federation': 'Redirects authentication to on-premises identity provider',
-                        'Seamless SSO': 'Allows automatic sign-in on domain-joined devices'
-                    },
-                    section: 'Identity and Access Management'
-                },
-                {
-                    id: 6,
-                    type: 'multiple-choice',
-                    text: 'Which of the following is NOT a valid MFA verification method in Microsoft Entra ID?',
-                    options: [
-                        'Microsoft Authenticator app notification',
-                        'SMS text message code',
-                        'Voice call verification',
-                        'Email verification code'
-                    ],
-                    correctAnswer: 3,
-                    section: 'Identity and Access Management',
-                    explanation: 'Email is NOT a supported MFA verification method in Microsoft Entra ID. The supported methods include authenticator apps, SMS, voice calls, and hardware tokens.'
-                },
-                {
-                    id: 7,
-                    type: 'scenario',
-                    scenario: 'Contoso Ltd has 500 employees. They want to implement a security policy where:\n- All users must use MFA when accessing Microsoft 365\n- External users should have limited access\n- Admin accounts need additional protection\n- Users signing in from trusted locations can skip MFA',
-                    text: 'Which Microsoft 365 security feature would best meet ALL of these requirements?',
-                    options: [
-                        'Security Defaults',
-                        'Conditional Access policies',
-                        'Per-user MFA configuration',
-                        'Azure AD Identity Protection'
-                    ],
-                    correctAnswer: 1,
-                    section: 'Identity and Access Management',
-                    explanation: 'Conditional Access policies provide the granular control needed to implement all these requirements, including location-based policies, user-based policies, and role-based policies.'
-                },
-                {
-                    id: 8,
-                    type: 'multiple-choice',
-                    text: 'What is the primary purpose of Microsoft Entra ID (Azure AD) guest user accounts?',
-                    options: [
-                        'To provide full access to all organizational resources',
-                        'To enable external collaboration with partners and vendors',
-                        'To manage on-premises Active Directory users',
-                        'To create service accounts for applications'
-                    ],
-                    correctAnswer: 1,
-                    section: 'Identity and Access Management',
-                    explanation: 'Guest user accounts in Microsoft Entra ID are specifically designed to enable secure collaboration with external users from other organizations.'
-                },
-                {
-                    id: 9,
-                    type: 'multiple-choice',
-                    text: 'Which Microsoft Entra ID feature assigns administrative roles to users only when they need them, for a limited time period?',
-                    options: [
-                        'Role-Based Access Control (RBAC)',
-                        'Conditional Access',
-                        'Privileged Identity Management (PIM)',
-                        'Just-In-Time Access'
-                    ],
-                    correctAnswer: 2,
-                    section: 'Identity and Access Management',
-                    explanation: 'Privileged Identity Management (PIM) provides just-in-time privileged access, requiring users to activate roles when needed for a specified time period.'
-                },
-                {
-                    id: 10,
-                    type: 'true-false',
-                    text: 'Self-Service Password Reset (SSPR) in Microsoft Entra ID requires users to register at least two authentication methods.',
-                    correctAnswer: true,
-                    section: 'Identity and Access Management',
-                    explanation: 'True. SSPR requires users to register a minimum of two authentication methods to ensure they can reset their password even if one method is unavailable.'
-                },
-                {
-                    id: 11,
-                    type: 'multiple-choice',
-                    text: 'An organization wants to automatically block sign-ins from users whose credentials have been compromised. Which feature should they enable?',
-                    options: [
-                        'Conditional Access',
-                        'Microsoft Entra ID Protection',
-                        'Multi-Factor Authentication',
-                        'Security Defaults'
-                    ],
-                    correctAnswer: 1,
-                    section: 'Identity and Access Management',
-                    explanation: 'Microsoft Entra ID Protection detects identity-based risks and can automatically block or require additional verification for risky sign-ins.'
-                },
-                {
-                    id: 12,
-                    type: 'multiple-select',
-                    text: 'Which of the following are valid signals that Conditional Access policies can use to make access decisions? (Select all that apply)',
-                    options: [
-                        'User or group membership',
-                        'IP location or country',
-                        'Device platform (iOS, Android, Windows)',
-                        'Real-time sign-in risk',
-                        'User\'s favorite color'
-                    ],
-                    correctAnswers: [0, 1, 2, 3],
-                    section: 'Identity and Access Management',
-                    explanation: 'Conditional Access can use signals including user/group membership, location, device platform, application, and real-time risk detection.'
-                },
-                {
-                    id: 13,
-                    type: 'multiple-choice',
-                    text: 'What is the default Microsoft Entra ID role that can create and manage all aspects of users, groups, and support tickets?',
-                    options: [
-                        'Global Administrator',
-                        'User Administrator',
-                        'Security Administrator',
-                        'Helpdesk Administrator'
-                    ],
-                    correctAnswer: 1,
-                    section: 'Identity and Access Management',
-                    explanation: 'The User Administrator role can create and manage users and groups, reset passwords for non-administrators, and manage support tickets.'
-                },
-                {
-                    id: 14,
-                    type: 'scenario',
-                    scenario: 'TechCorp has deployed Microsoft 365 and wants to ensure their CEO and other executives have maximum security protection. They want:\n- MFA required for every sign-in\n- Access blocked from unknown devices\n- Approval required before activating admin roles\n- Time-limited admin access',
-                    text: 'Which combination of features should TechCorp implement?',
-                    options: [
-                        'Conditional Access + Security Defaults',
-                        'Conditional Access + Privileged Identity Management (PIM)',
-                        'MFA + Identity Protection',
-                        'Security Defaults + RBAC'
-                    ],
-                    correctAnswer: 1,
-                    section: 'Identity and Access Management',
-                    explanation: 'Conditional Access provides the granular access controls for MFA and device requirements, while PIM provides approval workflows and time-limited admin access.'
-                },
-                {
-                    id: 15,
-                    type: 'multiple-choice',
-                    text: 'Which authentication protocol is recommended by Microsoft for modern authentication in Microsoft 365?',
-                    options: [
-                        'Basic Authentication',
-                        'NTLM',
-                        'OAuth 2.0 and Modern Authentication',
-                        'Kerberos'
-                    ],
-                    correctAnswer: 2,
-                    section: 'Identity and Access Management',
-                    explanation: 'OAuth 2.0 with Modern Authentication is the recommended protocol as it supports MFA, Conditional Access, and provides better security than legacy protocols.'
-                },
+        // Dropdown toggle functionality
+        const dropdownBtn = document.querySelector('.dropdown .nav-btn');
+        const dropdownContent = document.querySelector('.dropdown-content');
 
-                // SECTION 2: Productivity Solutions (12 questions)
-                {
-                    id: 16,
-                    type: 'multiple-choice',
-                    text: 'Which Microsoft 365 application is primarily used for creating professional documents with advanced formatting, styles, and templates?',
-                    options: [
-                        'Microsoft OneNote',
-                        'Microsoft Word',
-                        'Microsoft Publisher',
-                        'Microsoft PowerPoint'
-                    ],
-                    correctAnswer: 1,
-                    section: 'Productivity Solutions',
-                    explanation: 'Microsoft Word is the primary word processing application in Microsoft 365, designed for creating and editing professional documents.'
-                },
-                {
-                    id: 17,
-                    type: 'drag-drop',
-                    text: 'Match each Microsoft 365 app to its primary purpose:',
-                    items: [
-                        'Excel',
-                        'PowerPoint',
-                        'OneNote',
-                        'Outlook'
-                    ],
-                    zones: [
-                        'Email and calendar management',
-                        'Digital note-taking and organization',
-                        'Data analysis and spreadsheet creation',
-                        'Creating presentations and slideshows'
-                    ],
-                    correctMapping: {
-                        'Excel': 'Data analysis and spreadsheet creation',
-                        'PowerPoint': 'Creating presentations and slideshows',
-                        'OneNote': 'Digital note-taking and organization',
-                        'Outlook': 'Email and calendar management'
-                    },
-                    section: 'Productivity Solutions'
-                },
-                {
-                    id: 18,
-                    type: 'multiple-select',
-                    text: 'Which features are available in Microsoft Excel for data analysis? (Select all that apply)',
-                    options: [
-                        'PivotTables',
-                        'Charts and graphs',
-                        'Formulas and functions',
-                        'Mail merge',
-                        'Conditional formatting'
-                    ],
-                    correctAnswers: [0, 1, 2, 4],
-                    section: 'Productivity Solutions',
-                    explanation: 'Excel provides PivotTables, charts, formulas, and conditional formatting for data analysis. Mail merge is a Word feature.'
-                },
-                {
-                    id: 19,
-                    type: 'true-false',
-                    text: 'Microsoft 365 Apps can be accessed from web browsers, desktop applications, and mobile devices.',
-                    correctAnswer: true,
-                    section: 'Productivity Solutions',
-                    explanation: 'True. Microsoft 365 Apps are available across platforms including web (Office Online), desktop (full applications), and mobile (iOS/Android apps).'
-                },
-                {
-                    id: 20,
-                    type: 'multiple-choice',
-                    text: 'Which Microsoft 365 app allows users to create and organize notes with text, images, audio recordings, and drawings across multiple devices?',
-                    options: [
-                        'Microsoft Word',
-                        'Microsoft To Do',
-                        'Microsoft OneNote',
-                        'Microsoft Lists'
-                    ],
-                    correctAnswer: 2,
-                    section: 'Productivity Solutions',
-                    explanation: 'OneNote is a digital notebook that allows users to capture and organize notes in various formats including text, images, audio, and drawings.'
-                },
-                {
-                    id: 21,
-                    type: 'scenario',
-                    scenario: 'Marketing team needs to:\n- Create a quarterly report with charts and tables\n- Design a presentation for stakeholders\n- Track campaign tasks and deadlines\n- Share meeting notes with the team',
-                    text: 'Which Microsoft 365 apps should they use for each task, in order?',
-                    options: [
-                        'Word, PowerPoint, Planner, OneNote',
-                        'Excel, Word, To Do, Teams',
-                        'Excel, PowerPoint, Planner, OneNote',
-                        'Word, Excel, Tasks, SharePoint'
-                    ],
-                    correctAnswer: 2,
-                    section: 'Productivity Solutions',
-                    explanation: 'Excel for reports with data/charts, PowerPoint for presentations, Planner for task management, and OneNote for shared meeting notes.'
-                },
-                {
-                    id: 22,
-                    type: 'multiple-choice',
-                    text: 'What is the primary benefit of Microsoft 365 Copilot in productivity applications?',
-                    options: [
-                        'It provides antivirus protection',
-                        'It uses AI to help generate content, analyze data, and automate tasks',
-                        'It manages user licenses',
-                        'It creates backups of documents'
-                    ],
-                    correctAnswer: 1,
-                    section: 'Productivity Solutions',
-                    explanation: 'Microsoft 365 Copilot is an AI-powered assistant that helps users create content, analyze data, and increase productivity across Microsoft 365 apps.'
-                },
-                {
-                    id: 23,
-                    type: 'multiple-choice',
-                    text: 'Which Microsoft 365 app is best suited for managing and tracking project schedules, tasks, and resources with Gantt charts?',
-                    options: [
-                        'Microsoft Planner',
-                        'Microsoft To Do',
-                        'Microsoft Project',
-                        'Microsoft Lists'
-                    ],
-                    correctAnswer: 2,
-                    section: 'Productivity Solutions',
-                    explanation: 'Microsoft Project is the professional project management tool with advanced features like Gantt charts, resource management, and detailed scheduling.'
-                },
-                {
-                    id: 24,
-                    type: 'true-false',
-                    text: 'Microsoft Outlook can integrate with Microsoft Teams, allowing users to schedule Teams meetings directly from their Outlook calendar.',
-                    correctAnswer: true,
-                    section: 'Productivity Solutions',
-                    explanation: 'True. Outlook and Teams are deeply integrated, allowing users to schedule and join Teams meetings directly from Outlook.'
-                },
-                {
-                    id: 25,
-                    type: 'multiple-choice',
-                    text: 'Which feature in Microsoft Word helps multiple users work on the same document simultaneously?',
-                    options: [
-                        'Track Changes',
-                        'Co-authoring (Real-time collaboration)',
-                        'Comments',
-                        'Version History'
-                    ],
-                    correctAnswer: 1,
-                    section: 'Productivity Solutions',
-                    explanation: 'Co-authoring allows multiple users to edit the same document at the same time, with changes appearing in real-time.'
-                },
-                {
-                    id: 26,
-                    type: 'multiple-choice',
-                    text: 'What is Microsoft Bookings primarily used for?',
-                    options: [
-                        'Creating and managing documents',
-                        'Scheduling and managing appointments with customers',
-                        'Tracking project tasks',
-                        'Storing and sharing files'
-                    ],
-                    correctAnswer: 1,
-                    section: 'Productivity Solutions',
-                    explanation: 'Microsoft Bookings is a scheduling tool that allows businesses to manage appointments, send confirmations, and integrate with calendars.'
-                },
-                {
-                    id: 27,
-                    type: 'multiple-select',
-                    text: 'Which of the following are features of Microsoft Forms? (Select all that apply)',
-                    options: [
-                        'Create surveys and quizzes',
-                        'Collect responses and analyze results',
-                        'Real-time collaboration on surveys',
-                        'Automatic grading for quizzes',
-                        'Video conferencing'
-                    ],
-                    correctAnswers: [0, 1, 2, 3],
-                    section: 'Productivity Solutions',
-                    explanation: 'Forms can create surveys/quizzes, collect and analyze responses, support collaboration, and auto-grade quizzes. Video conferencing is a Teams feature.'
-                },
+        if (dropdownBtn && dropdownContent) {
+            dropdownBtn.addEventListener('click', function(e) {
+                e.stopPropagation();
+                dropdownContent.classList.toggle('show');
+            });
 
-                // SECTION 3: Collaboration Solutions (12 questions)
-                {
-                    id: 28,
-                    type: 'multiple-choice',
-                    text: 'What is the primary purpose of Microsoft Teams?',
-                    options: [
-                        'File storage and backup',
-                        'Email management',
-                        'Chat-based collaboration and meetings',
-                        'Document creation'
-                    ],
-                    correctAnswer: 2,
-                    section: 'Collaboration Solutions',
-                    explanation: 'Microsoft Teams is the hub for teamwork in Microsoft 365, providing chat, video meetings, file collaboration, and app integration in one place.'
-                },
-                {
-                    id: 29,
-                    type: 'true-false',
-                    text: 'When you create a Team in Microsoft Teams, a SharePoint site is automatically created to store the team\'s files.',
-                    correctAnswer: true,
-                    section: 'Collaboration Solutions',
-                    explanation: 'True. Creating a Team automatically provisions a Microsoft 365 Group, which includes a SharePoint site for file storage.'
-                },
-                {
-                    id: 30,
-                    type: 'drag-drop',
-                    text: 'Match each collaboration tool to its best use case:',
-                    items: [
-                        'Microsoft Teams',
-                        'SharePoint',
-                        'OneDrive',
-                        'Yammer'
-                    ],
-                    zones: [
-                        'Enterprise social networking and communities',
-                        'Personal file storage and sharing',
-                        'Team collaboration and real-time communication',
-                        'Organization-wide content management and intranets'
-                    ],
-                    correctMapping: {
-                        'Microsoft Teams': 'Team collaboration and real-time communication',
-                        'SharePoint': 'Organization-wide content management and intranets',
-                        'OneDrive': 'Personal file storage and sharing',
-                        'Yammer': 'Enterprise social networking and communities'
-                    },
-                    section: 'Collaboration Solutions'
-                },
-                {
-                    id: 31,
-                    type: 'multiple-choice',
-                    text: 'Which Microsoft 365 service provides personal cloud storage for each user to store their files?',
-                    options: [
-                        'SharePoint',
-                        'OneDrive for Business',
-                        'Microsoft Teams',
-                        'Exchange Online'
-                    ],
-                    correctAnswer: 1,
-                    section: 'Collaboration Solutions',
-                    explanation: 'OneDrive for Business provides each user with personal cloud storage that can be accessed from any device and shared with others.'
-                },
-                {
-                    id: 32,
-                    type: 'scenario',
-                    scenario: 'A company needs to:\n- Create a company-wide intranet portal\n- Host department sites with news and announcements\n- Manage document libraries with version control\n- Implement content approval workflows',
-                    text: 'Which Microsoft 365 service is best suited for these requirements?',
-                    options: [
-                        'Microsoft Teams',
-                        'OneDrive for Business',
-                        'SharePoint Online',
-                        'Exchange Online'
-                    ],
-                    correctAnswer: 2,
-                    section: 'Collaboration Solutions',
-                    explanation: 'SharePoint Online is designed for enterprise content management, intranet portals, team sites, and workflow automation.'
-                },
-                {
-                    id: 33,
-                    type: 'multiple-select',
-                    text: 'Which features are available in Microsoft Teams? (Select all that apply)',
-                    options: [
-                        'Chat and instant messaging',
-                        'Video and audio meetings',
-                        'File sharing and collaboration',
-                        'App integration (tabs, bots, connectors)',
-                        'Email hosting'
-                    ],
-                    correctAnswers: [0, 1, 2, 3],
-                    section: 'Collaboration Solutions',
-                    explanation: 'Teams provides chat, meetings, file collaboration, and app integration. Email hosting is provided by Exchange Online, not Teams.'
-                },
-                {
-                    id: 34,
-                    type: 'multiple-choice',
-                    text: 'What is the difference between a public team and a private team in Microsoft Teams?',
-                    options: [
-                        'Public teams are visible to everyone in the organization; private teams require permission to join',
-                        'Public teams allow guest access; private teams do not',
-                        'Public teams can have unlimited members; private teams are limited to 250',
-                        'There is no difference'
-                    ],
-                    correctAnswer: 0,
-                    section: 'Collaboration Solutions',
-                    explanation: 'Public teams are discoverable and joinable by anyone in the organization, while private teams are hidden and require an invitation or approval to join.'
-                },
-                {
-                    id: 35,
-                    type: 'multiple-choice',
-                    text: 'Which feature in SharePoint allows multiple users to work on the same document simultaneously?',
-                    options: [
-                        'Version history',
-                        'Co-authoring',
-                        'Check-in/Check-out',
-                        'Content approval'
-                    ],
-                    correctAnswer: 1,
-                    section: 'Collaboration Solutions',
-                    explanation: 'Co-authoring enables multiple users to edit the same document at the same time, with changes syncing in real-time.'
-                },
-                {
-                    id: 36,
-                    type: 'true-false',
-                    text: 'Microsoft Stream is a video streaming service that allows organizations to upload, share, and manage videos internally.',
-                    correctAnswer: true,
-                    section: 'Collaboration Solutions',
-                    explanation: 'True. Microsoft Stream (now integrated with SharePoint) is an enterprise video service for uploading, sharing, and discovering organizational videos.'
-                },
-                {
-                    id: 37,
-                    type: 'multiple-choice',
-                    text: 'What is the maximum file size that can be uploaded to OneDrive for Business?',
-                    options: [
-                        '100 MB',
-                        '2 GB',
-                        '15 GB',
-                        '250 GB'
-                    ],
-                    correctAnswer: 3,
-                    section: 'Collaboration Solutions',
-                    explanation: 'OneDrive for Business supports individual file uploads up to 250 GB through the OneDrive sync client.'
-                },
-                {
-                    id: 38,
-                    type: 'scenario',
-                    scenario: 'A remote team needs to:\n- Have daily standup meetings with video\n- Chat in real-time throughout the day\n- Collaborate on project files\n- Integrate task management tools',
-                    text: 'Which Microsoft 365 solution provides ALL these capabilities in one platform?',
-                    options: [
-                        'SharePoint + OneDrive',
-                        'Microsoft Teams',
-                        'Yammer + Outlook',
-                        'Exchange Online + Skype'
-                    ],
-                    correctAnswer: 1,
-                    section: 'Collaboration Solutions',
-                    explanation: 'Microsoft Teams is the all-in-one collaboration platform that includes meetings, chat, file collaboration, and app integration (including Planner/Tasks).'
-                },
-                {
-                    id: 39,
-                    type: 'multiple-choice',
-                    text: 'Which app can be added to Microsoft Teams channels to enhance collaboration?',
-                    options: [
-                        'Microsoft Planner for task management',
-                        'Microsoft Whiteboard for brainstorming',
-                        'Power Apps for custom applications',
-                        'All of the above'
-                    ],
-                    correctAnswer: 3,
-                    section: 'Collaboration Solutions',
-                    explanation: 'Teams supports integration with numerous apps including Planner, Whiteboard, Power Apps, Forms, and many third-party applications.'
-                },
-
-                // SECTION 4: Security, Compliance, and Trust (4 questions)
-                {
-                    id: 40,
-                    type: 'multiple-choice',
-                    text: 'What is the Zero Trust security model in Microsoft 365?',
-                    options: [
-                        'A security model that trusts all users inside the corporate network',
-                        'A security model that never trusts and always verifies, regardless of location',
-                        'A security model that blocks all external access',
-                        'A security model that only applies to guest users'
-                    ],
-                    correctAnswer: 1,
-                    section: 'Security and Compliance',
-                    explanation: 'Zero Trust assumes breach and verifies each request as though it originates from an untrusted network, requiring continuous verification.'
-                },
-                {
-                    id: 41,
-                    type: 'multiple-select',
-                    text: 'Which are components of Microsoft 365 Defender? (Select all that apply)',
-                    options: [
-                        'Defender for Endpoint',
-                        'Defender for Office 365',
-                        'Defender for Identity',
-                        'Defender for Cloud Apps',
-                        'Defender Antivirus'
-                    ],
-                    correctAnswers: [0, 1, 2, 3],
-                    section: 'Security and Compliance',
-                    explanation: 'Microsoft 365 Defender includes Defender for Endpoint, Office 365, Identity, and Cloud Apps. Defender Antivirus is part of Defender for Endpoint.'
-                },
-                {
-                    id: 42,
-                    type: 'multiple-choice',
-                    text: 'Which Microsoft 365 compliance feature helps organizations discover, classify, and protect sensitive information?',
-                    options: [
-                        'Data Loss Prevention (DLP)',
-                        'Retention policies',
-                        'eDiscovery',
-                        'Litigation hold'
-                    ],
-                    correctAnswer: 0,
-                    section: 'Security and Compliance',
-                    explanation: 'Data Loss Prevention (DLP) identifies, monitors, and automatically protects sensitive information across Microsoft 365.'
-                },
-                {
-                    id: 43,
-                    type: 'true-false',
-                    text: 'Microsoft Secure Score provides recommendations to improve an organization\'s security posture and tracks progress over time.',
-                    correctAnswer: true,
-                    section: 'Security and Compliance',
-                    explanation: 'True. Microsoft Secure Score is a measurement of security posture with actionable recommendations and tracking capabilities.'
-                },
-
-                // SECTION 5: Pricing and Licensing (2 questions)
-                {
-                    id: 44,
-                    type: 'multiple-choice',
-                    text: 'Which Microsoft 365 licensing model is most suitable for large enterprises with more than 300 users?',
-                    options: [
-                        'Microsoft 365 Personal',
-                        'Microsoft 365 Business Basic',
-                        'Microsoft 365 Enterprise (E3/E5)',
-                        'Office 365 E1'
-                    ],
-                    correctAnswer: 2,
-                    section: 'Pricing and Licensing',
-                    explanation: 'Microsoft 365 Enterprise plans (E3/E5) are designed for large organizations with advanced security, compliance, and analytics needs.'
-                },
-                {
-                    id: 45,
-                    type: 'multiple-choice',
-                    text: 'What is the typical billing cycle for Microsoft 365 subscriptions?',
-                    options: [
-                        'Weekly or bi-weekly',
-                        'Monthly or annually',
-                        'Quarterly only',
-                        'One-time payment'
-                    ],
-                    correctAnswer: 1,
-                    section: 'Pricing and Licensing',
-                    explanation: 'Microsoft 365 subscriptions are typically billed monthly or annually, with annual commitments often providing cost savings.'
+            // Close dropdown when clicking outside
+            document.addEventListener('click', function(e) {
+                if (!e.target.closest('.dropdown')) {
+                    dropdownContent.classList.remove('show');
                 }
-            ]
-        };
-
-        // Exam state
-        let currentQuestion = 0;
-        let answers = {};
-        let flagged = new Set();
-        let timeRemaining = examData.totalTime;
-        let timerInterval;
-        let examStarted = false;
-
-        // Initialize exam
-        function initExam() {
-            renderNavigation();
-            renderQuestion();
-            startTimer();
-            updateProgress();
-            examStarted = true;
-        }
-
-        // Timer function
-        function startTimer() {
-            timerInterval = setInterval(() => {
-                timeRemaining--;
-                updateTimerDisplay();
-                
-                if (timeRemaining <= 0) {
-                    clearInterval(timerInterval);
-                    submitExam();
-                }
-            }, 1000);
-        }
-
-        function updateTimerDisplay() {
-            const minutes = Math.floor(timeRemaining / 60);
-            const seconds = timeRemaining % 60;
-            const display = `${minutes}:${seconds.toString().padStart(2, '0')}`;
-            const timerEl = document.getElementById('timer');
-            timerEl.textContent = display;
-            
-            if (timeRemaining <= 300) { // 5 minutes warning
-                timerEl.classList.add('warning');
-            }
-        }
-
-        // Navigation
-        function renderNavigation() {
-            const navGrid = document.getElementById('navGrid');
-            navGrid.innerHTML = '';
-            
-            examData.questions.forEach((q, index) => {
-                const navItem = document.createElement('div');
-                navItem.className = 'nav-item';
-                navItem.textContent = index + 1;
-                
-                if (index === currentQuestion) {
-                    navItem.classList.add('current');
-                }
-                if (answers[q.id] !== undefined && answers[q.id] !== null) {
-                    navItem.classList.add('answered');
-                }
-                if (flagged.has(q.id)) {
-                    navItem.classList.add('flagged');
-                }
-                
-                navItem.onclick = () => goToQuestion(index);
-                navGrid.appendChild(navItem);
             });
         }
 
-        function goToQuestion(index) {
-            currentQuestion = index;
-            renderQuestion();
-            renderNavigation();
-            updateProgress();
-        }
+        // Tab switching functionality
+        document.querySelectorAll('.nav-btn').forEach(button => {
+            button.addEventListener('click', function() {
+                // Skip if this is the Personal Information dropdown trigger
+                if (this.closest('.dropdown')) return;
+                
+                const targetId = this.getAttribute('data-target');
+                
+                // Hide all sections
+                document.querySelectorAll('section').forEach(section => {
+                    section.classList.remove('active');
+                });
+                
+                // Remove active class from all buttons
+                document.querySelectorAll('.nav-btn').forEach(btn => {
+                    btn.classList.remove('active');
+                });
+                
+                // Show the target section
+                const targetSection = document.getElementById(targetId);
+                if (targetSection) {
+                    targetSection.classList.add('active');
+                    // Add active class to clicked button
+                    this.classList.add('active');
+                    // Scroll to top of page smoothly
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                }
+                
+                // Update page title based on active section
+                updatePageTitle(targetId);
+            });
+        });
 
-        function updateProgress() {
-            const progress = ((currentQuestion + 1) / examData.questions.length) * 100;
-            document.getElementById('progressBar').style.width = progress + '%';
-        }
-
-        // Question rendering
-        function renderQuestion() {
-            const question = examData.questions[currentQuestion];
-            const questionArea = document.getElementById('questionArea');
-            
-            let html = `
-                <div class="question-header">
-                    <div class="question-number">Question ${currentQuestion + 1} of ${examData.questions.length}</div>
-                    <button class="flag-btn ${flagged.has(question.id) ? 'flagged' : ''}" onclick="toggleFlag()">
-                        ${flagged.has(question.id) ? '⚑ Flagged' : '⚐ Flag for Review'}
-                    </button>
-                </div>
-            `;
-
-            if (question.scenario) {
-                html += `
-                    <div class="case-study">
-                        <h4>Scenario</h4>
-                        <p style="white-space: pre-line;">${question.scenario}</p>
-                    </div>
-                `;
-            }
-
-            html += `<div class="question-text">${question.text}</div>`;
-
-            if (question.type === 'multiple-choice' || question.type === 'true-false') {
-                html += '<div class="options">';
-                const options = question.type === 'true-false' ? ['True', 'False'] : question.options;
-                options.forEach((option, index) => {
-                    const isSelected = question.type === 'true-false' 
-                        ? answers[question.id] === (index === 0)
-                        : answers[question.id] === index;
+        // Dropdown item functionality
+        document.querySelectorAll('.dropdown-item').forEach(button => {
+            button.addEventListener('click', function() {
+                const targetId = this.getAttribute('data-target');
+                const subTargetId = this.getAttribute('data-sub-target');
+                
+                // Close the dropdown
+                dropdownContent.classList.remove('show');
+                
+                // Hide all sections
+                document.querySelectorAll('section').forEach(section => {
+                    section.classList.remove('active');
+                });
+                
+                // Remove active class from all nav buttons
+                document.querySelectorAll('.nav-btn').forEach(btn => {
+                    btn.classList.remove('active');
+                });
+                
+                // Show the target section
+                const targetSection = document.getElementById(targetId);
+                if (targetSection) {
+                    targetSection.classList.add('active');
                     
-                    html += `
-                        <div class="option ${isSelected ? 'selected' : ''}" onclick="selectOption(${index})">
-                            <input type="radio" name="q${question.id}" ${isSelected ? 'checked' : ''}>
-                            <span>${option}</span>
-                        </div>
-                    `;
-                });
-                html += '</div>';
-            } else if (question.type === 'multiple-select') {
-                html += '<div class="instructions"><h3>Instructions</h3><p>Select all answers that apply.</p></div>';
-                html += '<div class="options">';
-                question.options.forEach((option, index) => {
-                    const isSelected = answers[question.id]?.includes(index) || false;
-                    html += `
-                        <div class="option ${isSelected ? 'selected' : ''}" onclick="toggleMultiSelect(${index})">
-                            <input type="checkbox" ${isSelected ? 'checked' : ''}>
-                            <span>${option}</span>
-                        </div>
-                    `;
-                });
-                html += '</div>';
-            } else if (question.type === 'drag-drop') {
-                html += `
-                    <div class="instructions">
-                        <h3>Instructions</h3>
-                        <p>Drag items from the left to match them with the correct descriptions on the right.</p>
-                    </div>
-                    <div class="drag-drop-area">
-                        <div class="drag-items">
-                            <h4>Items to Match</h4>
-                            <div id="dragItems"></div>
-                        </div>
-                        <div class="drop-zones">
-                            <h4>Descriptions</h4>
-                            <div id="dropZones"></div>
-                        </div>
-                    </div>
-                `;
-            } else if (question.type === 'scenario') {
-                html += '<div class="options">';
-                question.options.forEach((option, index) => {
-                    const isSelected = answers[question.id] === index;
-                    html += `
-                        <div class="option ${isSelected ? 'selected' : ''}" onclick="selectOption(${index})">
-                            <input type="radio" name="q${question.id}" ${isSelected ? 'checked' : ''}>
-                            <span>${option}</span>
-                        </div>
-                    `;
-                });
-                html += '</div>';
-            }
-
-            html += `
-                <div class="navigation-buttons">
-                    <button class="nav-btn previous" onclick="previousQuestion()" ${currentQuestion === 0 ? 'disabled' : ''}>
-                        ← Previous
-                    </button>
-                    ${currentQuestion === examData.questions.length - 1 
-                        ? '<button class="nav-btn submit" onclick="confirmSubmit()">Submit Exam</button>'
-                        : '<button class="nav-btn next" onclick="nextQuestion()">Next →</button>'
+                    // Highlight the Personal Information button
+                    const personalInfoBtn = document.querySelector('.dropdown .nav-btn');
+                    if (personalInfoBtn) {
+                        personalInfoBtn.classList.add('active');
                     }
-                </div>
-            `;
+                }
+                
+                // Hide all sub-contents
+                document.querySelectorAll('.sub-content').forEach(content => {
+                    content.classList.remove('active');
+                });
+                
+                // Remove active class from all sub-nav buttons
+                document.querySelectorAll('.sub-nav-btn').forEach(btn => {
+                    btn.classList.remove('active');
+                });
+                
+                // Show the target sub-content
+                const targetSubContent = document.getElementById(subTargetId);
+                if (targetSubContent) {
+                    targetSubContent.classList.add('active');
+                }
+                
+                // Activate the corresponding sub-nav button
+                const correspondingSubNavBtn = document.querySelector(`[data-sub-target="${subTargetId}"]`);
+                if (correspondingSubNavBtn && correspondingSubNavBtn.classList.contains('sub-nav-btn')) {
+                    correspondingSubNavBtn.classList.add('active');
+                }
+                
+                // Scroll to top of page smoothly
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+                
+                // Update page title
+                updatePageTitle(targetId);
+            });
+        });
 
-            questionArea.innerHTML = html;
-
-            if (question.type === 'drag-drop') {
-                renderDragDrop(question);
-            }
-        }
-
-        function renderDragDrop(question) {
-            const dragItems = document.getElementById('dragItems');
-            const dropZones = document.getElementById('dropZones');
-            
-            // Initialize answers if not exists
-            if (!answers[question.id]) {
-                answers[question.id] = {};
-            }
-            
-            // Render items
-            const usedItems = new Set(Object.keys(answers[question.id]));
-            question.items.forEach(item => {
-                if (!usedItems.has(item)) {
-                    const div = document.createElement('div');
-                    div.className = 'drag-item';
-                    div.draggable = true;
-                    div.textContent = item;
-                    div.ondragstart = (e) => e.dataTransfer.setData('text', item);
-                    dragItems.appendChild(div);
+        // Sub-tab switching functionality for Personal Information
+        document.querySelectorAll('.sub-nav-btn').forEach(button => {
+            button.addEventListener('click', function() {
+                const targetId = this.getAttribute('data-sub-target');
+                
+                // Hide all sub-contents
+                document.querySelectorAll('.sub-content').forEach(content => {
+                    content.classList.remove('active');
+                });
+                
+                // Remove active class from all sub-nav buttons
+                document.querySelectorAll('.sub-nav-btn').forEach(btn => {
+                    btn.classList.remove('active');
+                });
+                
+                // Show the target sub-content
+                const targetContent = document.getElementById(targetId);
+                if (targetContent) {
+                    targetContent.classList.add('active');
+                    // Add active class to clicked button
+                    this.classList.add('active');
                 }
             });
-            
-            // Render zones
-            question.zones.forEach(zone => {
-                const div = document.createElement('div');
-                div.className = 'drop-zone';
-                div.innerHTML = `<strong>${zone}</strong>`;
-                
-                // Check if this zone already has an item
-                const assignedItem = Object.keys(answers[question.id]).find(
-                    item => answers[question.id][item] === zone
-                );
-                
-                if (assignedItem) {
-                    const itemDiv = document.createElement('div');
-                    itemDiv.className = 'drag-item';
-                    itemDiv.draggable = true;
-                    itemDiv.textContent = assignedItem;
-                    itemDiv.ondragstart = (e) => {
-                        e.dataTransfer.setData('text', assignedItem);
-                        delete answers[question.id][assignedItem];
-                    };
-                    itemDiv.onclick = () => {
-                        delete answers[question.id][assignedItem];
-                        renderQuestion();
-                    };
-                    div.appendChild(itemDiv);
-                }
-                
-                div.ondragover = (e) => {
-                    e.preventDefault();
-                    div.classList.add('drag-over');
-                };
-                div.ondragleave = () => div.classList.remove('drag-over');
-                div.ondrop = (e) => {
-                    e.preventDefault();
-                    div.classList.remove('drag-over');
-                    const item = e.dataTransfer.getData('text');
-                    answers[question.id][item] = zone;
-                    renderQuestion();
-                    renderNavigation();
-                };
-                
-                dropZones.appendChild(div);
-            });
-        }
-
-        function selectOption(index) {
-            const question = examData.questions[currentQuestion];
-            answers[question.id] = index;
-            renderQuestion();
-            renderNavigation();
-        }
-
-        function toggleMultiSelect(index) {
-            const question = examData.questions[currentQuestion];
-            if (!answers[question.id]) {
-                answers[question.id] = [];
+        });
+        
+        // Show Profile section by default on page load
+        window.addEventListener('DOMContentLoaded', function() {
+            const profileSection = document.getElementById('profile');
+            const profileButton = document.querySelector('[data-target="profile"]');
+            if (profileSection) {
+                profileSection.classList.add('active');
             }
-            
-            const answerIndex = answers[question.id].indexOf(index);
-            if (answerIndex > -1) {
-                answers[question.id].splice(answerIndex, 1);
-            } else {
-                answers[question.id].push(index);
+            if (profileButton) {
+                profileButton.classList.add('active');
             }
-            
-            renderQuestion();
-            renderNavigation();
+        });
+        
+        // Update page title based on active section
+        function updatePageTitle(sectionId) {
+            const titles = {
+                'profile': 'Profile - Mokenyu Akumbom Junior Kezong',
+                'personal-info': 'Personal Information - Mokenyu Akumbom Junior Kezong',
+                'work-samples': 'Work Samples - Mokenyu Akumbom Junior Kezong',
+                'education': 'Education - Mokenyu Akumbom Junior Kezong',
+                'contact': 'Contact - Mokenyu Akumbom Junior Kezong'
+            };
+            document.title = titles[sectionId] || 'Mokenyu Akumbom Junior Kezong - IT Portfolio';
         }
-
-        function toggleFlag() {
-            const question = examData.questions[currentQuestion];
-            if (flagged.has(question.id)) {
-                flagged.delete(question.id);
-            } else {
-                flagged.add(question.id);
-            }
-            renderQuestion();
-            renderNavigation();
-        }
-
-        function previousQuestion() {
-            if (currentQuestion > 0) {
-                currentQuestion--;
-                renderQuestion();
-                renderNavigation();
-                updateProgress();
-            }
-        }
-
-        function nextQuestion() {
-            if (currentQuestion < examData.questions.length - 1) {
-                currentQuestion++;
-                renderQuestion();
-                renderNavigation();
-                updateProgress();
-            }
-        }
-
-        function confirmSubmit() {
-            const unanswered = examData.questions.filter(q => 
-                answers[q.id] === undefined || answers[q.id] === null || 
-                (Array.isArray(answers[q.id]) && answers[q.id].length === 0) ||
-                (typeof answers[q.id] === 'object' && Object.keys(answers[q.id]).length === 0)
-            ).length;
-            
-            let message = 'Are you sure you want to submit your exam?';
-            if (unanswered > 0) {
-                message += `\n\nYou have ${unanswered} unanswered question(s).`;
-            }
-            
-            if (confirm(message)) {
-                submitExam();
-            }
-        }
-
-        function submitExam() {
-            clearInterval(timerInterval);
-            
-            // Calculate score
-            let totalPoints = 0;
-            let earnedPoints = 0;
-            const sectionScores = {};
-            
-            examData.questions.forEach(question => {
-                totalPoints += 1000 / examData.questions.length;
-                
-                if (!sectionScores[question.section]) {
-                    sectionScores[question.section] = { total: 0, earned: 0 };
-                }
-                sectionScores[question.section].total += 1;
-                
-                let isCorrect = false;
-                
-                if (question.type === 'multiple-choice' || question.type === 'scenario') {
-                    isCorrect = answers[question.id] === question.correctAnswer;
-                } else if (question.type === 'true-false') {
-                    isCorrect = answers[question.id] === question.correctAnswer;
-                } else if (question.type === 'multiple-select') {
-                    const userAnswers = answers[question.id] || [];
-                    isCorrect = JSON.stringify(userAnswers.sort()) === JSON.stringify(question.correctAnswers.sort());
-                } else if (question.type === 'drag-drop') {
-                    const userMapping = answers[question.id] || {};
-                    isCorrect = Object.keys(question.correctMapping).every(
-                        item => userMapping[item] === question.correctMapping[item]
-                    );
-                }
-                
-                if (isCorrect) {
-                    earnedPoints += 1000 / examData.questions.length;
-                    sectionScores[question.section].earned += 1;
-                }
-            });
-            
-            const finalScore = Math.round(earnedPoints);
-            const passed = finalScore >= examData.passingScore;
-            
-            // Display results
-            displayResults(finalScore, passed, sectionScores);
-        }
-
-        function displayResults(score, passed, sectionScores) {
-            document.getElementById('examContent').style.display = 'none';
-            const resultsScreen = document.getElementById('resultsScreen');
-            resultsScreen.classList.add('active');
-            
-            let html = `
-                <h2>Exam Complete!</h2>
-                <div class="score-display">${score}</div>
-                <div class="pass-fail ${passed ? 'pass' : 'fail'}">
-                    ${passed ? '✓ PASSED' : '✗ DID NOT PASS'}
-                </div>
-                <p style="font-size: 18px; margin: 20px 0;">
-                    Passing Score: ${examData.passingScore} | Your Score: ${score}
-                </p>
-                
-                <div class="section-breakdown">
-                    <h3 style="margin-bottom: 20px;">Performance by Section</h3>
-            `;
-            
-            Object.keys(sectionScores).forEach(section => {
-                const data = sectionScores[section];
-                const percentage = (data.earned / data.total * 100).toFixed(1);
-                html += `
-                    <div class="section-item">
-                        <div class="section-name">${section}</div>
-                        <div>${data.earned} of ${data.total} correct (${percentage}%)</div>
-                        <div class="section-bar">
-                            <div class="section-bar-fill" style="width: ${percentage}%"></div>
-                        </div>
-                    </div>
-                `;
-            });
-            
-            html += `
-                </div>
-                
-                <div style="margin-top: 40px; padding: 20px; background: #f8f9fa; border-radius: 6px;">
-                    <h3>Recommendations for Mokenyu:</h3>
-                    <p style="line-height: 1.8; text-align: left;">
-                        Based on your performance, focus on:<br><br>
-                        ${sectionScores['Identity and Access Management'].earned / sectionScores['Identity and Access Management'].total < 0.7 ? 
-                            '• <strong>Identity and Access Management</strong>: Review Azure AD, MFA, Conditional Access, and authentication methods<br>' : ''}
-                        ${sectionScores['Productivity Solutions'].earned / sectionScores['Productivity Solutions'].total < 0.7 ?
-                            '• <strong>Productivity Solutions</strong>: Study Microsoft 365 Apps features and capabilities<br>' : ''}
-                        ${sectionScores['Collaboration Solutions'].earned / sectionScores['Collaboration Solutions'].total < 0.7 ?
-                            '• <strong>Collaboration Solutions</strong>: Focus on Teams, SharePoint, and OneDrive integration<br>' : ''}
-                        <br>
-                        Keep practicing and review Microsoft Learn modules for these topics!
-                    </p>
-                </div>
-            `;
-            
-            // Add detailed answer review
-            html += generateAnswerReview();
-            
-            html += `
-                <button class="restart-btn" onclick="location.reload()">Take Another Practice Exam</button>
-            `;
-            
-            resultsScreen.innerHTML = html;
-        }
-
-        function generateAnswerReview() {
-            let html = `
-                <div style="max-width: 900px; margin: 40px auto; text-align: left;">
-                    <h2 style="text-align: center; margin-bottom: 30px; color: #0078d4;">📝 Answer Review</h2>
-            `;
-            
-            examData.questions.forEach((question, index) => {
-                let isCorrect = false;
-                let userAnswerText = '';
-                let correctAnswerText = '';
-                
-                // Determine if answer is correct and get answer texts
-                if (question.type === 'multiple-choice' || question.type === 'scenario') {
-                    isCorrect = answers[question.id] === question.correctAnswer;
-                    userAnswerText = answers[question.id] !== undefined ? question.options[answers[question.id]] : 'Not answered';
-                    correctAnswerText = question.options[question.correctAnswer];
-                } else if (question.type === 'true-false') {
-                    isCorrect = answers[question.id] === question.correctAnswer;
-                    userAnswerText = answers[question.id] !== undefined ? (answers[question.id] ? 'True' : 'False') : 'Not answered';
-                    correctAnswerText = question.correctAnswer ? 'True' : 'False';
-                } else if (question.type === 'multiple-select') {
-                    const userAnswers = answers[question.id] || [];
-                    isCorrect = JSON.stringify(userAnswers.sort()) === JSON.stringify(question.correctAnswers.sort());
-                    userAnswerText = userAnswers.length > 0 
-                        ? userAnswers.map(i => question.options[i]).join(', ') 
-                        : 'Not answered';
-                    correctAnswerText = question.correctAnswers.map(i => question.options[i]).join(', ');
-                } else if (question.type === 'drag-drop') {
-                    const userMapping = answers[question.id] || {};
-                    isCorrect = Object.keys(question.correctMapping).every(
-                        item => userMapping[item] === question.correctMapping[item]
-                    );
-                    userAnswerText = Object.keys(userMapping).length > 0
-                        ? Object.keys(userMapping).map(item => `${item} → ${userMapping[item]}`).join('; ')
-                        : 'Not answered';
-                    correctAnswerText = Object.keys(question.correctMapping).map(
-                        item => `${item} → ${question.correctMapping[item]}`
-                    ).join('; ');
-                }
-                
-                const statusColor = isCorrect ? '#28a745' : '#dc3545';
-                const statusIcon = isCorrect ? '✓' : '✗';
-                const statusText = isCorrect ? 'Correct' : 'Incorrect';
-                
-                html += `
-                    <div style="background: white; border: 2px solid ${statusColor}; border-radius: 8px; padding: 25px; margin-bottom: 25px;">
-                        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
-                            <h3 style="color: #333; margin: 0;">Question ${index + 1}</h3>
-                            <span style="background: ${statusColor}; color: white; padding: 6px 15px; border-radius: 20px; font-weight: 600; font-size: 14px;">
-                                ${statusIcon} ${statusText}
-                            </span>
-                        </div>
-                        
-                        ${question.scenario ? `
-                            <div style="background: #f8f9fa; border-left: 4px solid #0078d4; padding: 15px; margin-bottom: 15px; border-radius: 4px;">
-                                <strong>Scenario:</strong><br>
-                                <span style="white-space: pre-line;">${question.scenario}</span>
-                            </div>
-                        ` : ''}
-                        
-                        <p style="font-size: 16px; font-weight: 500; margin-bottom: 20px; line-height: 1.6;">
-                            ${question.text}
-                        </p>
-                        
-                        <div style="background: #f8f9fa; padding: 15px; border-radius: 6px; margin-bottom: 15px;">
-                            <div style="margin-bottom: 10px;">
-                                <strong style="color: #666;">Your Answer:</strong><br>
-                                <span style="color: ${isCorrect ? '#28a745' : '#dc3545'}; font-weight: 500;">
-                                    ${userAnswerText}
-                                </span>
-                            </div>
-                            ${!isCorrect ? `
-                                <div>
-                                    <strong style="color: #666;">Correct Answer:</strong><br>
-                                    <span style="color: #28a745; font-weight: 500;">
-                                        ${correctAnswerText}
-                                    </span>
-                                </div>
-                            ` : ''}
-                        </div>
-                        
-                        <div style="background: #e7f3ff; border-left: 4px solid #0078d4; padding: 15px; border-radius: 4px;">
-                            <strong style="color: #0078d4;">💡 Explanation:</strong><br>
-                            <span style="line-height: 1.6;">${question.explanation}</span>
-                        </div>
-                        
-                        <div style="margin-top: 10px; font-size: 12px; color: #666;">
-                            <strong>Section:</strong> ${question.section}
-                        </div>
-                    </div>
-                `;
-            });
-            
-            html += '</div>';
-            return html;
-        }
-
-        // Start exam on load
-        window.onload = initExam;
     </script>
+
 </body>
 </html>
